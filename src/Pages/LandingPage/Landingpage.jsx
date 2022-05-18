@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./Home.css";
+import "./LandingPage.css";
 import hero from "../../assets/hero.svg";
-import { Login, Signup } from "../../components/";
+import { Login, Signup } from "../../components";
 
-const Home = () => {
+const LandingPage = () => {
   const [authMode, setAuthMode] = useState("login");
   return (
     <main className="home-section">
@@ -29,4 +29,4 @@ const Home = () => {
   );
 };
 
-export { Home };
+export { LandingPage };
