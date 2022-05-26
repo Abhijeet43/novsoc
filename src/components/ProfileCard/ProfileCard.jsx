@@ -1,5 +1,6 @@
 import React from "react";
 import userImg from "../../assets/userOne.jpg";
+import { Link } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import "./ProfileCard.css";
 
@@ -13,8 +14,8 @@ const ProfileCard = () => {
       <p className="profile-handle">@johnDoe</p>
       <p className="profile-description">A web dev enthusiast.</p>
       <div className="profile-actions">
-        <button className="btn btn-primary">Edit Profile</button>
-        <button className="btn btn-danger" title="Logout">
+        <button className="btn btn-primary profile-btn">Edit Profile</button>
+        <button className="btn btn-danger profile-btn" title="Logout">
           <FiLogOut />
         </button>
       </div>
@@ -33,7 +34,7 @@ const ProfileCard = () => {
         </div>
       </div>
       <p className="profile-link">
-        <a href="#">https://www.google.co.in</a>
+        <Link to="https://www.google.co.in">https://www.google.co.in</Link>
       </p>
     </section>
   );

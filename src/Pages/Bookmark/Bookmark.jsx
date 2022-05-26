@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Header,
-  PostCard,
-  SuggestionsCard,
-  CreatePostCard,
-} from "../../components/";
+import { Header, PostCard, SuggestionsCard } from "../../components/";
 import "./Bookmark.css";
 
 const Bookmark = () => {
@@ -29,7 +24,6 @@ const Bookmark = () => {
             </div>
           </section>
         </section>
-        <CreatePostCard />
       </main>
     </>
   );

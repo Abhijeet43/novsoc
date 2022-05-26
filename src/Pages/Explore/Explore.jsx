@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  Header,
-  PostCard,
-  SuggestionsCard,
-  CreatePostCard,
-  Sort,
-} from "../../components/";
+import { Header, PostCard, SuggestionsCard, Sort } from "../../components/";
 import "./Explore.css";
 
 const Explore = () => {
@@ -32,7 +26,6 @@ const Explore = () => {
             </div>
           </section>
         </section>
-        <CreatePostCard />
       </main>
     </>
   );

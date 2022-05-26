@@ -26,16 +26,30 @@
 .nav-item {
   cursor: pointer;
   font-size: var(--font-size-3);
-  padding: 1rem;
   margin: 0 0.3rem;
   display: flex;
   align-items: center;
+  color: var(--primary-color);
 }
 
-.nav-item:hover,
+.create-post-btn {
+  font-size: inherit;
+  color: var(--primary-color);
+}
+
+.nav-item:hover {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+.nav-item:hover svg {
+  color: var(--secondary-color);
+}
+
 .active {
   background: var(--primary-color);
   color: var(--secondary-color);
+  padding: 1rem;
   border-radius: 10px;
 }
 

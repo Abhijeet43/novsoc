@@ -3,7 +3,7 @@ import {
   Header,
   PostCard,
   SuggestionsCard,
-  CreatePostCard,
+  CreatePostModal,
   Sort,
 } from "../../components/";
 import "./Home.css";
@@ -32,7 +32,7 @@ const Home = () => {
             </div>
           </section>
         </section>
-        <CreatePostCard />
+        <CreatePostModal />
       </main>
     </>
   );

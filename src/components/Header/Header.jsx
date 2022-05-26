@@ -2,12 +2,13 @@ import React from "react";
 import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { MdOutlineExplore } from "react-icons/md";
 import { BsBookmark } from "react-icons/bs";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import userImg from "../../assets/userOne.jpg";
 import "./Header.css";
 
 const Header = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <header className="header">
@@ -33,11 +34,14 @@ const Header = () => {
               <BsBookmark title="Bookmark" />
             </NavLink>
           </li>
-          <li className="nav-item">
-            <button>
-              <AiOutlinePlusCircle title="Create Post" />
-            </button>
-          </li>
+          {location.pathname === "/home" ? (
+            <li className="nav-item">
+              <button className="create-post-btn">
+                <AiOutlinePlusCircle title="Create Post" />
+              </button>
+            </li>
+          ) : null}
+
           <li className="nav-item" title="Profile">
             <button onClick={() => navigate("/profile")}>
               <div className="user-avatar">

@@ -1,8 +1,8 @@
 import React from "react";
-import "./CreatePostCard.css";
+import "./CreatePostModal.css";
 import { FaTimes, FaImage } from "react-icons/fa";
 
-const CreatePostCard = () => {
+const CreatePostModal = () => {
   return (
     <>
       <div className="create-post-overlay"></div>
@@ -38,4 +38,4 @@ const CreatePostCard = () => {
   );
 };
 
-export { CreatePostCard };
+export { CreatePostModal };
