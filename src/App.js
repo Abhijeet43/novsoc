@@ -1,6 +1,13 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { LandingPage, Home, Explore, Bookmark, Profile } from "./Pages/";
+import {
+  LandingPage,
+  Home,
+  Explore,
+  Bookmark,
+  Profile,
+  Error404,
+} from "./Pages/";
 function App() {
   return (
     <Router>
@@ -10,6 +17,7 @@ function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/bookmark" element={<Bookmark />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </Router>
   );
