@@ -14,10 +14,10 @@ const Header = () => {
           </h1>
         </div>
         <ul className="nav-items">
-          <li className="nav-item active">
+          <li className="nav-item">
             <AiOutlineHome title="Home" />
           </li>
-          <li className="nav-item">
+          <li className="nav-item active">
             <MdOutlineExplore title="Explore" />
           </li>
           <li className="nav-item">
