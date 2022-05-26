@@ -1,0 +1,144 @@
+.post-card {
+  max-width: 50rem;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: var(--secondary-color);
+}
+
+.post-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-card-header-actions {
+  position: relative;
+}
+
+.post-card-menu-btn {
+  font-size: var(--font-size-5);
+}
+
+.post-card-menu {
+  position: absolute;
+  right: 1rem;
+  padding: 1rem;
+  background: var(--secondary-color);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.post-card-menu-active {
+  transform: scale(1);
+}
+
+.post-card-menu-item {
+  font-size: var(--font-size-5);
+  padding: 0.5rem 0;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--lynx-gray-color);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in, color 0.3s ease-in;
+}
+
+.post-card-menu-item:hover {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.user-avatar {
+  width: 4rem;
+  height: 4rem;
+}
+
+.user-avatar img {
+  border-radius: 50%;
+}
+
+.post-card-user-info {
+  display: flex;
+}
+
+.user-info-details {
+  padding: 1rem;
+  font-size: var(--font-size-5);
+}
+
+.user-info-handle {
+  font-size: var(--font-size-5);
+  padding: 1rem 0;
+}
+
+.post-card-content {
+  font-size: var(--font-size-5);
+}
+
+.post-card-img {
+  margin-top: 1rem;
+}
+
+.post-card-actions {
+  display: flex;
+  gap: 4rem;
+}
+
+.post-card-action-btn {
+  font-size: var(--font-size-5);
+}
+
+.counter-value {
+  margin-left: 0.5rem;
+  font-size: var(--font-size-6);
+}
+
+.post-card-comment {
+  padding: 0.5rem 0;
+  display: flex;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  width: 100%;
+  border: 1px solid var(--primary-color);
+}
+
+input[type="text"]:focus {
+  outline: 1px solid var(--primary-color);
+}
+
+.post-btn {
+  color: var(--primary-color);
+  margin-left: 1rem;
+}
+
+.post-card-comments {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.comments-avatar {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+}
+
+.comments-content {
+  font-size: var(--font-size-6);
+}
+
+.comments-handle {
+  font-size: var(--font-size-7);
+  color: var(--lynx-gray-color);
+  font-weight: normal;
+}
+
+.comments-avatar img {
+  border-radius: 50%;
+}

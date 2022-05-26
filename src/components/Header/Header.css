@@ -1,0 +1,38 @@
+/* HEADER */
+.header {
+  padding: 1rem 2rem;
+  background-color: var(--secondary-color);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  border-bottom: 1px solid var(--lynx-gray-color);
+  z-index: 2;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  font-size: var(--font-size-4);
+}
+
+.nav-items {
+  display: flex;
+}
+
+.nav-item {
+  cursor: pointer;
+  font-size: var(--font-size-3);
+  padding: 0.3rem 1rem;
+  margin: 0 0.3rem;
+}
+
+.nav-item:hover,
+.active {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  border-radius: 10px;
+}

@@ -1,12 +1,40 @@
 import React from "react";
+import {
+  Header,
+  PostCard,
+  SuggestionsCard,
+  CreatePostCard,
+  Sort,
+} from "../../components/";
 import "./Home.css";
 
 const Home = () => {
   return (
-    <header>
-      <h1>NovSoc</h1>
-      <div className="nav-menu"></div>
-    </header>
+    <>
+      <Header />
+      <main className="main-section">
+        <section className="main-container">
+          <section className="card-container">
+            <Sort />
+
+            <PostCard />
+            <PostCard />
+          </section>
+
+          <section className="suggestions-container">
+            <h2 className="suggestions-title">People you may know</h2>
+            <div className="suggestions-list">
+              <SuggestionsCard />
+
+              <SuggestionsCard />
+
+              <SuggestionsCard />
+            </div>
+          </section>
+        </section>
+        <CreatePostCard />
+      </main>
+    </>
   );
 };
 
