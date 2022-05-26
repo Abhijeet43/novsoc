@@ -19,7 +19,8 @@
   transform: scale(1);
 }
 
-.create-post-overlay {
+.create-post-overlay,
+.edit-modal-overlay {
   position: fixed;
   inset: 0;
   background: var(--lynx-purple-color);
@@ -30,7 +31,8 @@
   z-index: 3;
 }
 
-.create-post-overlay-active {
+.create-post-overlay-active,
+.edit-modal-overlay-active {
   transform: scale(1);
 }
 

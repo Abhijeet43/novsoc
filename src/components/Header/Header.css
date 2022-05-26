@@ -28,6 +28,8 @@
   font-size: var(--font-size-3);
   padding: 0.3rem 1rem;
   margin: 0 0.3rem;
+  display: flex;
+  align-items: center;
 }
 
 .nav-item:hover,
@@ -35,4 +37,8 @@
   background: var(--primary-color);
   color: var(--secondary-color);
   border-radius: 10px;
+}
+
+.nav-item:hover:last-child {
+  background: var(--secondary-color);
 }

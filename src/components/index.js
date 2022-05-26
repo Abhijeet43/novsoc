@@ -5,3 +5,4 @@ export { PostCard } from "./PostCard/PostCard";
 export { SuggestionsCard } from "./SuggestionsCard/SuggestionsCard";
 export { CreatePostCard } from "./CreatePostCard/CreatePostCard";
 export { Sort } from "./Sort/Sort";
+export { ProfileCard } from "./ProfileCard/ProfileCard";

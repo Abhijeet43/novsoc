@@ -2,6 +2,7 @@ import React from "react";
 import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { MdOutlineExplore } from "react-icons/md";
 import { BsBookmark } from "react-icons/bs";
+import userImg from "../../assets/userOne.jpg";
 import "./Header.css";
 
 const Header = () => {
@@ -27,7 +28,9 @@ const Header = () => {
             <AiOutlinePlusCircle title="Create Post" />
           </li>
           <li className="nav-item" title="Profile">
-            <div>A</div>
+            <div className="user-avatar">
+              <img src={userImg} alt="user-profile" />
+            </div>
           </li>
         </ul>
       </navbar>

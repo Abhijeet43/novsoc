@@ -49,3 +49,13 @@
   display: flex;
   align-items: center;
 }
+
+/* font-styling */
+
+.bold {
+  font-weight: bold;
+}
+
+.center {
+  text-align: center;
+}
