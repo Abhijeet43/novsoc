@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser } from "../asyncThunk/";
+import { loginUser, signupUser } from "../asyncThunk/";
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -24,6 +24,17 @@ const authSlice = createSlice({
     [loginUser.rejected]: (state, action) => {
       state.isLoading = false;
       toast.error(action.error.message);
+    },
+    [signupUser.pending]: (state, action) => {
+      state.isLoading = true;
+    },
+    [signupUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload.data.foundUser;
+      state.token = action.payload.data.encodedToken;
+    },
+    [signupUser.rejected]: (state, action) => {
+      state.isLoading = false;
     },
   },
 });

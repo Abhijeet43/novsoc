@@ -60,7 +60,12 @@ const PostCard = () => {
         </div>
       </div>
       <div className="post-card-comment">
-        <input type="text" name="comment" placeholder="Add Comment..." />
+        <input
+          type="text"
+          className="comment"
+          name="comment"
+          placeholder="Add Comment..."
+        />
         <button className="post-card-action-btn post-btn">Post</button>
       </div>
       <div className="post-cards-container">

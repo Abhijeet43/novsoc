@@ -102,13 +102,13 @@
   display: flex;
 }
 
-input[type="text"] {
+.comment {
   padding: 0.5rem;
   width: 100%;
   border: 1px solid var(--primary-color);
 }
 
-input[type="text"]:focus {
+.comment:focus {
   outline: 1px solid var(--primary-color);
 }
 
