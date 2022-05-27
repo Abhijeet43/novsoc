@@ -3,7 +3,7 @@ import { useToggle } from "../../hooks/useToggle";
 import { signupUser } from "../../redux/asyncThunk";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import "../../css/authentication.css";
 
@@ -13,6 +13,8 @@ const Signup = ({ setAuthMode }) => {
   const { isLoading } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const location = useLocation();
 
   const [user, setUser] = useState({
     firstName: "",
@@ -52,7 +54,9 @@ const Signup = ({ setAuthMode }) => {
           );
           localStorage.setItem("token", response.payload.data.encodedToken);
           toast.success("Signup Successfull!!");
-          navigate("/home");
+          navigate(location?.state?.from?.pathname || "/home", {
+            replace: true,
+          });
         } else {
           toast.error("Something went wrong... Please Try After Sometime");
         }

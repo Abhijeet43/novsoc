@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../../redux/asyncThunk/";
 import { toast } from "react-toastify";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import "../../css/authentication.css";
 
 const Login = ({ setAuthMode }) => {
@@ -12,6 +13,8 @@ const Login = ({ setAuthMode }) => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const { isLoading } = useSelector((state) => state.auth);
 
@@ -38,6 +41,7 @@ const Login = ({ setAuthMode }) => {
   const guestUserHandler = (e) => {
     e.preventDefault();
     setUser(guestUser);
+    setRemember(true);
   };
 
   const checkInputs = () => {
@@ -59,7 +63,9 @@ const Login = ({ setAuthMode }) => {
         toast.success(
           `Welcome Back ${response.payload.data.foundUser.firstName}`
         );
-        navigate("/home");
+        navigate(location?.state?.from?.pathname || "/home", {
+          replace: true,
+        });
       } else {
         toast.error("Something went wrong... Please Try After Sometime");
       }
@@ -91,10 +97,11 @@ const Login = ({ setAuthMode }) => {
             value={user.password}
             required
           />
-          <i
-            onClick={setShowPass}
-            className={`fas ${showPass ? "fa-eye-slash" : "fa-eye"}`}
-          ></i>
+          {showPass ? (
+            <AiFillEye onClick={setShowPass} />
+          ) : (
+            <AiFillEyeInvisible onClick={setShowPass} />
+          )}
         </div>
         <div className="form-group check-remember">
           <div className="checkbox-group">
@@ -102,6 +109,7 @@ const Login = ({ setAuthMode }) => {
               type="checkbox"
               id="checkbox-remember"
               onChange={() => setRemember((prev) => !prev)}
+              checked={remember}
             />
             <label htmlFor="checkbox-remember">Remember Me</label>
           </div>
@@ -110,7 +118,11 @@ const Login = ({ setAuthMode }) => {
           <button className="btn btn-primary" onClick={guestUserHandler}>
             Add Guest credentials
           </button>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isLoading}
+          >
             Login
           </button>
           <p className="register-text">

@@ -3,8 +3,8 @@ import { loginUser, signupUser } from "../asyncThunk/";
 import { toast } from "react-toastify";
 
 const initialState = {
-  user: null,
-  token: null,
+  user: localStorage.getItem("user") || null,
+  token: localStorage.getItem("token") || null,
   isLoading: false,
 };
 
