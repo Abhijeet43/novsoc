@@ -1,0 +1,79 @@
+/* CREATE POST MODAL */
+
+.create-post-modal {
+  background: var(--secondary-color);
+  width: 40rem;
+  height: fit-content;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+  z-index: 4;
+}
+
+.create-post-modal-active {
+  transform: scale(1);
+}
+
+.create-post-overlay,
+.edit-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--lynx-purple-color);
+  width: 100vw;
+  height: 100vh;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+  z-index: 3;
+}
+
+.create-post-overlay-active,
+.edit-modal-overlay-active {
+  transform: scale(1);
+}
+
+.create-post-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-5);
+}
+
+.create-post-text {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.create-post-text textarea {
+  width: 100%;
+  resize: none;
+  border-radius: 5px;
+  border: 0.5px solid var(--lynx-gray-color);
+  padding: 1rem;
+}
+
+.create-post-text textarea:focus {
+  outline: 1px solid var(--primary-color);
+}
+
+.create-post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-5);
+}
+
+label {
+  cursor: pointer;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.btn-cancel {
+  color: var(--black-color);
+}

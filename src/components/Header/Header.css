@@ -1,0 +1,58 @@
+/* HEADER */
+.header {
+  padding: 1rem 2rem;
+  background-color: var(--secondary-color);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  border-bottom: 1px solid var(--lynx-gray-color);
+  z-index: 2;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  font-size: var(--font-size-4);
+}
+
+.nav-items {
+  display: flex;
+}
+
+.nav-item {
+  cursor: pointer;
+  font-size: var(--font-size-3);
+  margin: 0 0.3rem;
+  display: flex;
+  align-items: center;
+  color: var(--primary-color);
+}
+
+.create-post-btn {
+  font-size: inherit;
+  color: var(--primary-color);
+}
+
+.nav-item:hover {
+  background: var(--primary-color);
+  border-radius: 10px;
+}
+
+.nav-item:hover svg {
+  color: var(--secondary-color);
+}
+
+.active {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.nav-item:hover:last-child {
+  background: var(--secondary-color);
+}
