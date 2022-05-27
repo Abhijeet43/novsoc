@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { RequiresAuth } from "./RequiresAuth";
 import {
   LandingPage,
   Home,
@@ -29,10 +30,38 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/bookmark" element={<Bookmark />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/home"
+            element={
+              <RequiresAuth>
+                <Home />
+              </RequiresAuth>
+            }
+          />
+          <Route
+            path="/explore"
+            element={
+              <RequiresAuth>
+                <Explore />
+              </RequiresAuth>
+            }
+          />
+          <Route
+            path="/bookmark"
+            element={
+              <RequiresAuth>
+                <Bookmark />
+              </RequiresAuth>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <RequiresAuth>
+                <Profile />
+              </RequiresAuth>
+            }
+          />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </Router>
