@@ -17,7 +17,7 @@ const Signup = ({ setAuthMode }) => {
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
-    email: "",
+    username: "",
     password: "",
     confirmPassword: "",
   });
