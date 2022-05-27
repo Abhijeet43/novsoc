@@ -1,17 +1,29 @@
 import React, { useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../../redux/asyncThunk/";
+import { toast } from "react-toastify";
 import "../../css/authentication.css";
 
 const Login = ({ setAuthMode }) => {
   const [showPass, setShowPass] = useToggle(false);
 
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const { isLoading } = useSelector((state) => state.auth);
+
   const [user, setUser] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
+  const [remember, setRemember] = useState(false);
+
   const guestUser = {
-    email: "user@gmail.com",
+    username: "Guest123",
     password: "user123",
   };
 
@@ -28,8 +40,32 @@ const Login = ({ setAuthMode }) => {
     setUser(guestUser);
   };
 
-  const submitHandler = (e) => {
+  const checkInputs = () => {
+    return user.username && user.password;
+  };
+
+  const submitHandler = async (e) => {
     e.preventDefault();
+    if (checkInputs()) {
+      const response = await dispatch(loginUser(user));
+      if (response?.payload?.status === 200) {
+        if (remember) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify(response.payload.data.foundUser)
+          );
+          localStorage.setItem("token", response.payload.data.encodedToken);
+        }
+        toast.success(
+          `Welcome Back ${response.payload.data.foundUser.firstName}`
+        );
+        navigate("/home");
+      } else {
+        toast.error("Something went wrong... Please Try After Sometime");
+      }
+    } else {
+      toast.warn("Both fields are required");
+    }
   };
 
   return (
@@ -38,11 +74,11 @@ const Login = ({ setAuthMode }) => {
         <h1 className="form-title">Login</h1>
         <div className="form-group">
           <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
+            type="text"
+            name="username"
+            placeholder="User Name"
             onChange={changeHandler}
-            value={user.email}
+            value={user.username}
             required
           />
         </div>
@@ -62,7 +98,11 @@ const Login = ({ setAuthMode }) => {
         </div>
         <div className="form-group check-remember">
           <div className="checkbox-group">
-            <input type="checkbox" id="checkbox-remember" />
+            <input
+              type="checkbox"
+              id="checkbox-remember"
+              onChange={() => setRemember((prev) => !prev)}
+            />
             <label htmlFor="checkbox-remember">Remember Me</label>
           </div>
         </div>
