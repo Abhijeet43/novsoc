@@ -22,7 +22,16 @@ const Home = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
-  console.log(users);
+  const otherUsers = users.filter((item) => item.username !== user.username);
+
+  const nonFollowing = otherUsers.filter((item) =>
+    item.following.every((following) => following.username !== user.username)
+  );
+
+  let feedUsers = user.followers.map((user) => user.username);
+  feedUsers = [...feedUsers, user.username];
+
+  const feedPosts = posts.filter((post) => feedUsers.includes(post.username));
 
   return (
     <>
@@ -31,7 +40,7 @@ const Home = () => {
         <section className="main-container">
           <section className="card-container">
             <Sort />
-            {posts.map((post) => (
+            {feedPosts.map((post) => (
               <PostCard key={post._id} post={post} />
             ))}
           </section>
@@ -39,7 +48,9 @@ const Home = () => {
           <section className="suggestions-container">
             <h2 className="suggestions-title">People you may know</h2>
             <div className="suggestions-list">
-              <SuggestionsCard />
+              {nonFollowing.map((user) => (
+                <SuggestionsCard key={user._id} user={user} />
+              ))}
             </div>
           </section>
         </section>

@@ -7,7 +7,7 @@ import {
   EditProfileModal,
 } from "../../components/";
 
-import { getPosts } from "../../redux/asyncThunk/";
+import { getPosts, getUsers } from "../../redux/asyncThunk/";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./Profile.css";
@@ -15,12 +15,20 @@ import "./Profile.css";
 const Profile = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const dispatch = useDispatch();
+  const { users } = useSelector((state) => state.users);
   const { posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    dispatch(getUsers());
     dispatch(getPosts());
   }, [dispatch]);
+
+  const otherUsers = users.filter((item) => item.username !== user.username);
+
+  const nonFollowing = otherUsers.filter((item) =>
+    item.following.every((following) => following.username !== user.username)
+  );
 
   const userPosts = posts.filter((post) => post.username === user.username);
 
@@ -59,11 +67,9 @@ const Profile = () => {
           <section className="suggestions-container">
             <h2 className="suggestions-title">People you may know</h2>
             <div className="suggestions-list">
-              <SuggestionsCard />
-
-              <SuggestionsCard />
-
-              <SuggestionsCard />
+              {nonFollowing.map((user) => (
+                <SuggestionsCard key={user._id} user={user} />
+              ))}
             </div>
           </section>
         </section>

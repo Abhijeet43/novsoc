@@ -13,10 +13,7 @@ export const users = [
     password: "adarshBalika123",
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718283/profile_y24uvb.jpg",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
     website: "https://adarshbalika.netlify.app",
-    bookmarks: [],
     bio: "I am adarsh balika.. Learning Web Dev",
     following: [
       {
@@ -46,8 +43,13 @@ export const users = [
           "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718247/userOne_xot5gc.jpg",
       },
     ],
+    bookmarks: [],
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
   },
+
   /*****************************************2*******************************************/
+
   {
     _id: "1b288c33-ff6d-49c0-a8d3-58b297f1453",
     firstName: "Guest",
@@ -56,10 +58,7 @@ export const users = [
     password: "user123",
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718247/userOne_xot5gc.jpg",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
     website: "https://www.google.co.in",
-    bookmarks: [],
     bio: "An aspiring web developer",
     following: [
       {
@@ -105,8 +104,13 @@ export const users = [
           "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718583/userSix_hjf46y.jpg",
       },
     ],
+    bookmarks: [],
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
   },
+
   /*****************************************3*******************************************/
+
   {
     _id: "1b288c33-ff6d-49c0-a8d3-58b297f1454",
     firstName: "John",
@@ -115,10 +119,7 @@ export const users = [
     password: "johnDoe123",
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718256/userTwo_zuhg40.jpg",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
     website: "https://www.google.co.in",
-    bookmarks: [],
     bio: "Aritist and Musician",
     followers: [
       {
@@ -140,8 +141,13 @@ export const users = [
           "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718600/userThree_qat0za.jpg",
       },
     ],
+    bookmarks: [],
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
   },
+
   /*****************************************4*******************************************/
+
   {
     _id: "1b288c33-ff6d-49c0-a8d3-58b297f1455",
     firstName: "Johnson",
@@ -150,10 +156,7 @@ export const users = [
     password: "john245",
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718578/userFour_zrkbid.jpg",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
     website: "https://www.google.co.in",
-    bookmarks: [],
     bio: "Business Analyst and Foodie",
     followers: [
       {
@@ -175,6 +178,9 @@ export const users = [
           "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718614/userFive_dp8dgl.jpg",
       },
     ],
+    bookmarks: [],
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
   },
   /*****************************************5*******************************************/
   {
@@ -185,10 +191,7 @@ export const users = [
     password: "jamie234",
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718614/userFive_dp8dgl.jpg",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
     website: "https://www.google.co.in",
-    bookmarks: [],
     bio: "A Gym enthusiast, A footaball player and Motivational Speaker",
     followers: [
       {
@@ -226,8 +229,13 @@ export const users = [
           "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718578/userFour_zrkbid.jpg",
       },
     ],
+    bookmarks: [],
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
   },
+
   /*****************************************6*******************************************/
+
   {
     _id: "1b288c33-ff6d-49c0-a8d3-58b297f1457",
     firstName: "Peter",
@@ -236,10 +244,7 @@ export const users = [
     password: "watto123",
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718600/userThree_qat0za.jpg",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
     website: "https://www.google.co.in",
-    bookmarks: [],
     bio: "Artist and Graphic Designer",
     followers: [
       {
@@ -260,8 +265,13 @@ export const users = [
       },
     ],
     following: [],
+    bookmarks: [],
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
   },
+
   /*****************************************7*******************************************/
+
   {
     _id: "1b288c33-ff6d-49c0-a8d3-58b297f1458",
     firstName: "Bruce",
@@ -270,10 +280,7 @@ export const users = [
     password: "brucl789",
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718583/userSix_hjf46y.jpg",
-    createdAt: formatDate(),
-    updatedAt: formatDate(),
     website: "https://www.google.co.in",
-    bookmarks: [],
     bio: "Life Coach and Swimming Instructor",
     followers: [],
     following: [
@@ -294,5 +301,8 @@ export const users = [
           "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718247/userOne_xot5gc.jpg",
       },
     ],
+    bookmarks: [],
+    createdAt: formatDate(),
+    updatedAt: formatDate(),
   },
 ];
