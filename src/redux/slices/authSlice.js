@@ -3,7 +3,7 @@ import { loginUser, signupUser } from "../asyncThunk/";
 import { toast } from "react-toastify";
 
 const initialState = {
-  user: localStorage.getItem("user") || null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   token: localStorage.getItem("token") || null,
   isLoading: false,
 };

@@ -10,8 +10,8 @@ const SuggestionsCard = () => {
         <img src={userImg} alt="user" />
       </div>
       <div className="suggestions-info">
-        <h4>Dan Brown</h4>
-        <p>@danbrown</p>
+        <h4>John Doe</h4>
+        <p>@johnDoe</p>
       </div>
       <div className="suggestions-action">
         <button className="suggestions-follow" title="Follow">

@@ -11,6 +11,7 @@ import { formatDate, requiresAuth } from "../utils/authUtils";
  * */
 
 export const getAllUsersHandler = function () {
+  console.log("controller", this.db.users);
   return new Response(200, {}, { users: this.db.users });
 };
 
@@ -23,6 +24,7 @@ export const getUserHandler = function (schema, request) {
   const userId = request.params.userId;
   try {
     const user = schema.users.findBy({ _id: userId }).attrs;
+    console.log(user);
     return new Response(200, {}, { user });
   } catch (error) {
     return new Response(

@@ -1,5 +1,4 @@
 import React from "react";
-import userImg from "../../assets/userOne.jpg";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../../redux/slices/";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,7 +6,20 @@ import { FiLogOut } from "react-icons/fi";
 import { toast } from "react-toastify";
 import "./ProfileCard.css";
 
-const ProfileCard = () => {
+const ProfileCard = ({
+  user: {
+    avatarURL,
+    firstName,
+    lastName,
+    username,
+    website,
+    bio,
+    followers,
+    following,
+  },
+  posts,
+  setShowEditModal,
+}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -20,13 +32,18 @@ const ProfileCard = () => {
   return (
     <section className="profile">
       <div className="profile-image-container">
-        <img src={userImg} alt="profile" className="profile-image" />
+        <img src={avatarURL} alt="profile" className="profile-image" />
       </div>
-      <h2 className="profile-name">John Doe</h2>
-      <p className="profile-handle">@johnDoe</p>
-      <p className="profile-description">A web dev enthusiast.</p>
+      <h2 className="profile-name">{`${firstName} ${lastName}`}</h2>
+      <p className="profile-handle">@{username}</p>
+      <p className="profile-description">{bio}</p>
       <div className="profile-actions">
-        <button className="btn btn-primary profile-btn">Edit Profile</button>
+        <button
+          className="btn btn-primary profile-btn"
+          onClick={() => setShowEditModal(true)}
+        >
+          Edit Profile
+        </button>
         <button
           className="btn btn-danger profile-btn"
           title="Logout"
@@ -37,20 +54,20 @@ const ProfileCard = () => {
       </div>
       <div className="profile-details">
         <div>
-          <p className="bold center">1</p>
+          <p className="bold center">{posts.length}</p>
           <p>Posts</p>
         </div>
         <div>
-          <p className="bold center">1</p>
+          <p className="bold center">{followers.length}</p>
           <p>Followers</p>
         </div>
         <div>
-          <p className="bold center">1</p>
+          <p className="bold center">{following.length}</p>
           <p>Following</p>
         </div>
       </div>
       <p className="profile-link">
-        <Link to="https://www.google.co.in">https://www.google.co.in</Link>
+        <Link to={website}>{website}</Link>
       </p>
     </section>
   );
