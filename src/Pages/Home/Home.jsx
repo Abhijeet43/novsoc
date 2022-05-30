@@ -13,12 +13,16 @@ import { VscNoNewline } from "react-icons/vsc";
 
 const Home = () => {
   const dispatch = useDispatch();
+  const { users } = useSelector((state) => state.users);
   const { posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    dispatch(getUsers());
     dispatch(getPosts());
   }, [dispatch]);
+
+  console.log(users);
 
   return (
     <>
