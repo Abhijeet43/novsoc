@@ -14,7 +14,6 @@ const EditProfileModal = ({ setShowEditModal, showEditModal, userProfile }) => {
 
   const [userData, setUserData] = useState({
     ...userProfile,
-    avatarURL: "",
     avatarFile: "",
   });
 
@@ -96,7 +95,7 @@ const EditProfileModal = ({ setShowEditModal, showEditModal, userProfile }) => {
         </button>
       </div>
 
-      <div className="edit-avatar">
+      <div className="edit-avatar ">
         <span className="edit-profile-text">Avatar</span>
         <div className="avatar">
           <div className="edit-profile-img-container">
