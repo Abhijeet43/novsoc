@@ -50,7 +50,7 @@ const Signup = ({ setAuthMode }) => {
         if (response?.payload?.status === 201) {
           localStorage.setItem(
             "user",
-            JSON.stringify(response.payload.data.foundUser)
+            JSON.stringify(response.payload.data.createdUser)
           );
           localStorage.setItem("token", response.payload.data.encodedToken);
           toast.success("Signup Successfull!!");

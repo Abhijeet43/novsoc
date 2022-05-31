@@ -40,7 +40,7 @@ const authSlice = createSlice({
     },
     [signupUser.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.user = action.payload.data.foundUser;
+      state.user = action.payload.data.createdUser;
       state.token = action.payload.data.encodedToken;
     },
     [signupUser.rejected]: (state, action) => {

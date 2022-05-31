@@ -99,10 +99,14 @@ const EditProfileModal = ({ setShowEditModal, showEditModal, userProfile }) => {
         <span className="edit-profile-text">Avatar</span>
         <div className="avatar">
           <div className="edit-profile-img-container">
-            <img
-              src={userData?.avatarURL || userProfile?.avatarURL}
-              alt="user"
-            />
+            {userProfile.avatarURL || userData.avatarURL ? (
+              <img
+                src={userData?.avatarURL || userProfile?.avatarURL}
+                alt="user"
+              />
+            ) : (
+              <p className="edit-avatar-text">{`${userData.firstName[0].toUpperCase()}${userData.lastName[0].toUpperCase()}`}</p>
+            )}
           </div>
           <label htmlFor="change-profile">
             <input

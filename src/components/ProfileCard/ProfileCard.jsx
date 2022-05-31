@@ -32,7 +32,11 @@ const ProfileCard = ({
   return (
     <section className="profile">
       <div className="profile-image-container">
-        <img src={avatarURL} alt="profile" className="profile-image" />
+        {avatarURL ? (
+          <img src={avatarURL} alt="profile" className="profile-image" />
+        ) : (
+          <p className="profile-avatar">{`${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`}</p>
+        )}
       </div>
       <h2 className="profile-name">{`${firstName} ${lastName}`}</h2>
       <p className="profile-handle">@{username}</p>

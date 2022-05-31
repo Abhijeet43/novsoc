@@ -85,3 +85,15 @@
 .website input:focus {
   outline: 1px solid var(--primary-color);
 }
+
+.edit-avatar-text {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  width: 6rem;
+  height: 6rem;
+  font-size: var(--font-size-5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

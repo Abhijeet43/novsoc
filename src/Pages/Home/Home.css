@@ -21,3 +21,8 @@
   flex-direction: column;
   gap: 2rem;
 }
+
+.no-post-text {
+  text-align: center;
+  font-size: var(--font-size-2);
+}

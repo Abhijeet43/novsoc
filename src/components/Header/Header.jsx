@@ -4,7 +4,6 @@ import { MdOutlineExplore } from "react-icons/md";
 import { BsBookmark } from "react-icons/bs";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import userImg from "../../assets/userOne.jpg";
 import "./Header.css";
 
 const Header = () => {
@@ -48,7 +47,11 @@ const Header = () => {
           <li className="nav-item" title="Profile">
             <button onClick={() => navigate("/profile")}>
               <div className="user-avatar">
-                <img src={user.avatarURL} alt="user-profile" />
+                {user.avatarURL ? (
+                  <img src={user.avatarURL} alt="user-profile" />
+                ) : (
+                  <p className="avatar-text">{`${user.firstName[0].toUpperCase()}${user.lastName[0].toUpperCase()}`}</p>
+                )}
               </div>
             </button>
           </li>
