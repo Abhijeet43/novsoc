@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, signupUser } from "../asyncThunk/";
+import { loginUser, signupUser, editUser } from "../asyncThunk/";
 import { toast } from "react-toastify";
 
 const initialState = {
@@ -17,6 +17,9 @@ const authSlice = createSlice({
       state.token = null;
       localStorage.removeItem("user");
       localStorage.removeItem("token");
+    },
+    updateUser: (state, action) => {
+      state.user = action.payload;
     },
   },
   extraReducers: {
@@ -43,8 +46,19 @@ const authSlice = createSlice({
     [signupUser.rejected]: (state, action) => {
       state.isLoading = false;
     },
+    [editUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [editUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.user = action.payload.data.user;
+    },
+    [editUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      console.error(action.error.message);
+    },
   },
 });
 
-export const { logoutUser } = authSlice.actions;
+export const { logoutUser, updateUser } = authSlice.actions;
 export const { reducer: authReducer } = authSlice;

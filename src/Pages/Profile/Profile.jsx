@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Header,
   PostCard,
@@ -7,17 +7,25 @@ import {
   Suggestions,
 } from "../../components/";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getPosts } from "../../redux/asyncThunk/";
 
 import "./Profile.css";
 
 const Profile = () => {
   const [showEditModal, setShowEditModal] = useState(false);
 
+  const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
 
+  const [userProfile, setUserProfile] = useState(user);
+
   const userPosts = posts.filter((post) => post.username === user.username);
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return (
     <>
@@ -26,7 +34,7 @@ const Profile = () => {
         <section className="main-container">
           <section>
             <ProfileCard
-              user={user}
+              userData={user}
               posts={userPosts}
               setShowEditModal={setShowEditModal}
             />
@@ -41,6 +49,8 @@ const Profile = () => {
             <EditProfileModal
               showEditModal={showEditModal}
               setShowEditModal={setShowEditModal}
+              setUserProfile={setUserProfile}
+              userProfile={userProfile}
             />
 
             <section className="card-container">

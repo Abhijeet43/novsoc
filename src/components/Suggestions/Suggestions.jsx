@@ -1,11 +1,17 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUsers } from "../../redux/asyncThunk";
 import { SuggestionsCard } from "../index";
 import "./Suggestions.css";
 
 const Suggestions = () => {
+  const dispatch = useDispatch();
   const { users } = useSelector((state) => state.users);
   const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
 
   const otherUsers = users.filter((item) => item.username !== user.username);
 

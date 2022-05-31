@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import "./ProfileCard.css";
 
 const ProfileCard = ({
-  user: {
+  userData: {
     avatarURL,
     firstName,
     lastName,

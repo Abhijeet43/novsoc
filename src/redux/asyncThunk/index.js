@@ -1,3 +1,3 @@
-export { loginUser, signupUser } from "./authThunk";
+export { loginUser, signupUser, editUser } from "./authThunk";
 export { getUsers } from "./usersThunk";
 export { getPosts } from "./postsThunk";

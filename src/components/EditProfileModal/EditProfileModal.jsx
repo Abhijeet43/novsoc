@@ -1,23 +1,123 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import { useSelector, useDispatch } from "react-redux";
+import { editUser } from "../../redux/asyncThunk";
+import { updateUser } from "../../redux/slices/";
 import { AiFillCamera, AiOutlineClose } from "react-icons/ai";
-import { useSelector } from "react-redux";
 import "./EditProfileModal.css";
 
-const EditProfileModal = ({ setShowEditModal, showEditModal }) => {
-  const { user } = useSelector((state) => state.auth);
+const EditProfileModal = ({ setShowEditModal, showEditModal, userProfile }) => {
+  const { token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const reader = new FileReader();
 
   const [userData, setUserData] = useState({
-    avatarURL: user.avatarURL,
-    website: user.website,
-    bio: user.bio,
+    ...userProfile,
+    avatarURL: "",
+    avatarFile: "",
   });
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
-    setUserData({
-      ...userData,
-      [name]: value,
-    });
+    setUserData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const addProfileImageHandler = (e) => {
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setUserData({
+          ...userData,
+          avatarURL: reader.result,
+          avatarFile: e.target.files[0],
+        });
+      } else {
+        reader.abort();
+        setUserData({
+          ...userData,
+          avatarURL: "",
+          avatarFile: "",
+        });
+      }
+    };
+  };
+
+  const saveImageToCloudindary = async (
+    image,
+    saveData,
+    inputData,
+    type,
+    from = "profile"
+  ) => {
+    try {
+      const data = new FormData();
+      data.append("file", image);
+      data.append("upload_preset", "oxvrurru");
+
+      const requestOptions = {
+        method: "POST",
+        body: data,
+      };
+
+      await fetch(
+        `https://api.cloudinary.com/v1_1/abhijeetscloud/${type}/upload`,
+        requestOptions
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          let updatedData;
+          if (from === "post") {
+            updatedData = { ...inputData, img: data.url };
+          } else {
+            updatedData = { ...inputData, avatarUrl: data.secure_url };
+          }
+          saveData(updatedData);
+        })
+        .catch((error) => {
+          toast.error(error);
+        });
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  const saveEditedData = async (data) => {
+    try {
+      const response = await dispatch(editUser({ userData: data, token }));
+      if (response.payload.status === 201) {
+        setUserData(response.payload.data.user);
+        dispatch(updateUser(response?.payload.data.user));
+        toast.info("Profile Updated Successfully!!");
+      } else {
+        toast.error(`${response?.payload?.data?.errors[0]}`);
+      }
+    } catch (error) {
+      toast.error(error);
+    } finally {
+      setShowEditModal(false);
+    }
+  };
+
+  const editUserHandler = async () => {
+    try {
+      if (userData.avatarURL !== "") {
+        await saveImageToCloudindary(
+          userData.avatarFile,
+          saveEditedData,
+          userData,
+          "image"
+        );
+      } else if (
+        userData.website !== userProfile.website ||
+        userData.bio !== userProfile.bio
+      ) {
+        saveEditedData(userData);
+      }
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -40,10 +140,19 @@ const EditProfileModal = ({ setShowEditModal, showEditModal }) => {
         <span className="edit-profile-text">Avatar</span>
         <div className="avatar">
           <div className="edit-profile-img-container">
-            <img src={userData.avatarURL} alt="user" />
+            <img
+              src={userData?.avatarURL || userProfile?.avatarURL}
+              alt="user"
+            />
           </div>
           <label htmlFor="change-profile">
-            <input type="file" id="change-profile" hidden name="avatar" />
+            <input
+              type="file"
+              id="change-profile"
+              hidden
+              name="avatar"
+              onChange={addProfileImageHandler}
+            />
             <AiFillCamera />
           </label>
         </div>
@@ -71,7 +180,12 @@ const EditProfileModal = ({ setShowEditModal, showEditModal }) => {
       </div>
 
       <div className="edit-profile-footer">
-        <button className="btn btn-primary profile-btn">Update</button>
+        <button
+          className="btn btn-primary profile-btn"
+          onClick={editUserHandler}
+        >
+          Update
+        </button>
       </div>
     </section>
   );

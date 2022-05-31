@@ -59,6 +59,16 @@ export function makeServer({ environment = "development" } = {}) {
 
     routes() {
       this.namespace = "api";
+
+      //allow external URLs to pass through
+      this.passthrough(
+        "https://api.cloudinary.com/v1_1/abhijeetscloud/image/upload"
+      );
+
+      this.passthrough(
+        "https://api.cloudinary.com/v1_1/abhijeetscloud/video/upload"
+      );
+
       // auth routes (public)
       this.post("/auth/signup", signupHandler.bind(this));
       this.post("/auth/login", loginHandler.bind(this));
