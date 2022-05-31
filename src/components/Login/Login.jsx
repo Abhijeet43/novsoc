@@ -1,17 +1,32 @@
 import React, { useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../../redux/asyncThunk/";
+import { toast } from "react-toastify";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import "../../css/authentication.css";
 
 const Login = ({ setAuthMode }) => {
   const [showPass, setShowPass] = useToggle(false);
 
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const { isLoading } = useSelector((state) => state.auth);
+
   const [user, setUser] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
+  const [remember, setRemember] = useState(false);
+
   const guestUser = {
-    email: "user@gmail.com",
+    username: "Guest123",
     password: "user123",
   };
 
@@ -26,10 +41,37 @@ const Login = ({ setAuthMode }) => {
   const guestUserHandler = (e) => {
     e.preventDefault();
     setUser(guestUser);
+    setRemember(true);
   };
 
-  const submitHandler = (e) => {
+  const checkInputs = () => {
+    return user.username && user.password;
+  };
+
+  const submitHandler = async (e) => {
     e.preventDefault();
+    if (checkInputs()) {
+      const response = await dispatch(loginUser(user));
+      if (response?.payload?.status === 200) {
+        if (remember) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify(response.payload.data.foundUser)
+          );
+          localStorage.setItem("token", response.payload.data.encodedToken);
+        }
+        toast.success(
+          `Welcome Back ${response.payload.data.foundUser.firstName}`
+        );
+        navigate(location?.state?.from?.pathname || "/home", {
+          replace: true,
+        });
+      } else {
+        toast.error("Something went wrong... Please Try After Sometime");
+      }
+    } else {
+      toast.warn("Both fields are required");
+    }
   };
 
   return (
@@ -38,11 +80,11 @@ const Login = ({ setAuthMode }) => {
         <h1 className="form-title">Login</h1>
         <div className="form-group">
           <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
+            type="text"
+            name="username"
+            placeholder="User Name"
             onChange={changeHandler}
-            value={user.email}
+            value={user.username}
             required
           />
         </div>
@@ -55,14 +97,20 @@ const Login = ({ setAuthMode }) => {
             value={user.password}
             required
           />
-          <i
-            onClick={setShowPass}
-            className={`fas ${showPass ? "fa-eye-slash" : "fa-eye"}`}
-          ></i>
+          {showPass ? (
+            <AiFillEye onClick={setShowPass} />
+          ) : (
+            <AiFillEyeInvisible onClick={setShowPass} />
+          )}
         </div>
         <div className="form-group check-remember">
           <div className="checkbox-group">
-            <input type="checkbox" id="checkbox-remember" />
+            <input
+              type="checkbox"
+              id="checkbox-remember"
+              onChange={() => setRemember((prev) => !prev)}
+              checked={remember}
+            />
             <label htmlFor="checkbox-remember">Remember Me</label>
           </div>
         </div>
@@ -70,7 +118,11 @@ const Login = ({ setAuthMode }) => {
           <button className="btn btn-primary" onClick={guestUserHandler}>
             Add Guest credentials
           </button>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isLoading}
+          >
             Login
           </button>
           <p className="register-text">

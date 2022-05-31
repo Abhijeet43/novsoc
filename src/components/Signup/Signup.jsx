@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
+import { signupUser } from "../../redux/asyncThunk";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import { useNavigate, useLocation } from "react-router-dom";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import "../../css/authentication.css";
 
 const Signup = ({ setAuthMode }) => {
   const [showPass, setShowPass] = useToggle(false);
   const [showConfirmPass, setShowConfirmPass] = useToggle(false);
+  const { isLoading } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const location = useLocation();
 
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
-    email: "",
+    username: "",
     password: "",
     confirmPassword: "",
   });
 
-  const changeHandler = async (e) => {
+  const changeHandler = (e) => {
     const { name, value } = e.target;
     setUser((prevValue) => ({
       ...prevValue,
@@ -26,7 +36,7 @@ const Signup = ({ setAuthMode }) => {
     return (
       user.firstName !== "" &&
       user.lastName !== "" &&
-      user.email !== "" &&
+      user.username !== "" &&
       user.password !== "" &&
       user.confirmPassword !== ""
     );
@@ -34,6 +44,28 @@ const Signup = ({ setAuthMode }) => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (checkInputs()) {
+      if (user.password === user.confirmPassword) {
+        const response = await dispatch(signupUser(user));
+        if (response?.payload?.status === 201) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify(response.payload.data.createdUser)
+          );
+          localStorage.setItem("token", response.payload.data.encodedToken);
+          toast.success("Signup Successfull!!");
+          navigate(location?.state?.from?.pathname || "/home", {
+            replace: true,
+          });
+        } else {
+          toast.error("Something went wrong... Please Try After Sometime");
+        }
+      } else {
+        toast.error("Password and Confirm Password donot match");
+      }
+    } else {
+      toast.warn("Fields cannot be empty");
+    }
   };
 
   return (
@@ -63,10 +95,10 @@ const Signup = ({ setAuthMode }) => {
           </div>
           <div className="form-group">
             <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              value={user.email}
+              type="text"
+              name="username"
+              placeholder="User Name"
+              value={user.name}
               onChange={changeHandler}
               required
             />
@@ -80,10 +112,11 @@ const Signup = ({ setAuthMode }) => {
               onChange={changeHandler}
               required
             />
-            <i
-              className={`fas ${showPass ? "fa-eye-slash" : "fa-eye"}`}
-              onClick={setShowPass}
-            ></i>
+            {showPass ? (
+              <AiFillEye onClick={setShowPass} />
+            ) : (
+              <AiFillEyeInvisible onClick={setShowPass} />
+            )}
           </div>
           <div className="form-group">
             <input
@@ -94,13 +127,18 @@ const Signup = ({ setAuthMode }) => {
               onChange={changeHandler}
               required
             />
-            <i
-              className={`fas ${showConfirmPass ? "fa-eye-slash" : "fa-eye"}`}
-              onClick={setShowConfirmPass}
-            ></i>
+            {showConfirmPass ? (
+              <AiFillEye onClick={setShowConfirmPass} />
+            ) : (
+              <AiFillEyeInvisible onClick={setShowConfirmPass} />
+            )}
           </div>
           <div className="form-group">
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={isLoading}
+            >
               Sign Up
             </button>
             <p className="login-text">

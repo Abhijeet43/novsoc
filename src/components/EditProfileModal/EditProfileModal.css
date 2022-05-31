@@ -43,6 +43,7 @@
   height: 6rem;
   border-radius: 50%;
   object-fit: cover;
+  object-position: top;
 }
 
 .avatar {
@@ -77,9 +78,22 @@
   padding: 1rem;
   border-radius: 5px;
   border: 1px solid var(--primary-color);
+  width: 100%;
 }
 
 .bio textarea:focus,
 .website input:focus {
   outline: 1px solid var(--primary-color);
+}
+
+.edit-avatar-text {
+  background: var(--primary-color);
+  color: var(--secondary-color);
+  width: 6rem;
+  height: 6rem;
+  font-size: var(--font-size-5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

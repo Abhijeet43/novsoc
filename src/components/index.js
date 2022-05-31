@@ -7,3 +7,4 @@ export { CreatePostModal } from "./CreatePostModal/CreatePostModal";
 export { Sort } from "./Sort/Sort";
 export { ProfileCard } from "./ProfileCard/ProfileCard";
 export { EditProfileModal } from "./EditProfileModal/EditProfileModal";
+export { Suggestions } from "./Suggestions/Suggestions";

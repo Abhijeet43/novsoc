@@ -16,7 +16,7 @@ const CreatePostModal = () => {
         <div className="create-post-text">
           <textarea
             rows="6"
-            maxlength="200"
+            maxLength={200}
             placeholder="How are you feeling today"
           ></textarea>
         </div>
