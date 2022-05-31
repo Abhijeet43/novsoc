@@ -62,6 +62,15 @@ function App() {
               </RequiresAuth>
             }
           />
+
+          <Route
+            path="/profile/:username"
+            element={
+              <RequiresAuth>
+                <Profile />
+              </RequiresAuth>
+            }
+          />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </Router>

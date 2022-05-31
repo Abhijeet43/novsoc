@@ -45,7 +45,7 @@ const Header = () => {
           ) : null}
 
           <li className="nav-item" title="Profile">
-            <button onClick={() => navigate("/profile")}>
+            <button onClick={() => navigate(`/profile/${user.username}`)}>
               <div className="user-avatar">
                 {user.avatarURL ? (
                   <img src={user.avatarURL} alt="user-profile" />

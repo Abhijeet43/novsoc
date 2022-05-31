@@ -6,26 +6,28 @@ import {
   EditProfileModal,
   Suggestions,
 } from "../../components/";
-
-import { useSelector, useDispatch } from "react-redux";
-import { getPosts } from "../../redux/asyncThunk/";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getUser, getUserPosts } from "../../services";
 
 import "./Profile.css";
 
 const Profile = () => {
   const [showEditModal, setShowEditModal] = useState(false);
+  const { username } = useParams();
 
-  const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
-  const { user } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.users);
 
-  const [userProfile, setUserProfile] = useState(user);
-
-  const userPosts = posts.filter((post) => post.username === user.username);
+  const [userProfile, setUserProfile] = useState("");
+  const [userPosts, setUserPosts] = useState("");
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+    getUser(setUserProfile, username);
+    getUserPosts(setUserPosts, username);
+  }, [username, users, posts]);
+
+  console.log(userProfile);
 
   return (
     <>
@@ -34,7 +36,7 @@ const Profile = () => {
         <section className="main-container">
           <section>
             <ProfileCard
-              userData={user}
+              userData={userProfile}
               posts={userPosts}
               setShowEditModal={setShowEditModal}
             />
@@ -46,12 +48,12 @@ const Profile = () => {
               onClick={() => setShowEditModal(false)}
             ></div>
 
-            <EditProfileModal
+            {/* <EditProfileModal
               showEditModal={showEditModal}
               setShowEditModal={setShowEditModal}
               setUserProfile={setUserProfile}
               userProfile={userProfile}
-            />
+            /> */}
 
             <section className="card-container">
               <h2 className="post-heading">Posts</h2>
