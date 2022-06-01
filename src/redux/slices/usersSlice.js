@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { getUsers, followUser } from "../asyncThunk/";
+import { getUsers, followUser, unfollowUser } from "../asyncThunk/";
 
 const initialState = {
   users: [],
@@ -33,6 +33,17 @@ const usersSlice = createSlice({
     [followUser.rejected]: (state, action) => {
       state.isLoading = false;
       toast.error(action.payload.data.errors);
+    },
+    [unfollowUser.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [unfollowUser.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.users = action.payload.data.users;
+    },
+    [unfollowUser.rejected]: (state, action) => {
+      state.isLoading = false;
+      toast.error(action.payload.data.errors[0]);
     },
   },
 });

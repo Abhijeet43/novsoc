@@ -16,7 +16,7 @@ const Suggestions = () => {
   const otherUsers = users.filter((item) => item.username !== user?.username);
 
   const nonFollowing = otherUsers.filter((item) =>
-    item.following.every((following) => following.username !== user?.username)
+    item.followers.every((follower) => follower.username !== user?.username)
   );
   return (
     <section className="suggestions-container">

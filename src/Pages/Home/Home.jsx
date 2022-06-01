@@ -19,12 +19,11 @@ const Home = () => {
     dispatch(getPosts());
   }, [dispatch]);
 
-  let feedUsers = user.followers
-    ? user.followers.map((user) => user?.username)
-    : null;
-  feedUsers = [...feedUsers, user?.username];
-
-  const feedPosts = posts.filter((post) => feedUsers.includes(post.username));
+  const feedPosts = posts?.filter(
+    (post) =>
+      user.username === post.username ||
+      user.following.some((following) => following.username === post.username)
+  );
 
   return (
     <>

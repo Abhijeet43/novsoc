@@ -4,7 +4,7 @@ import { logoutUser, updateUser } from "../../redux/slices/";
 import { useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { toast } from "react-toastify";
-import { followUser } from "../../redux/asyncThunk/";
+import { followUser, unfollowUser } from "../../redux/asyncThunk/";
 import "./ProfileCard.css";
 
 const ProfileCard = ({ userData, posts, setShowEditModal }) => {
@@ -28,6 +28,11 @@ const ProfileCard = ({ userData, posts, setShowEditModal }) => {
     }
   };
 
+  const unfollowUserHandler = async (userId, token) => {
+    const response = await dispatch(unfollowUser({ userId, token }));
+    dispatch(updateUser(response?.payload.data.user));
+  };
+
   return (
     <section className="profile">
       <div className="profile-image-container">
@@ -47,12 +52,23 @@ const ProfileCard = ({ userData, posts, setShowEditModal }) => {
 
       <div className="profile-actions">
         {user?.username !== userData?.username ? (
-          <button
-            className="btn btn-primary profile-btn"
-            onClick={() => followUserHandler(userData._id, token)}
-          >
-            Follow
-          </button>
+          user.following.some(
+            (userFollow) => userFollow.username === userData?.username
+          ) ? (
+            <button
+              className="btn btn-primary profile-btn"
+              onClick={() => unfollowUserHandler(userData._id, token)}
+            >
+              UnFollow
+            </button>
+          ) : (
+            <button
+              className="btn btn-primary profile-btn"
+              onClick={() => followUserHandler(userData._id, token)}
+            >
+              Follow
+            </button>
+          )
         ) : (
           <>
             <button
