@@ -45,12 +45,12 @@ const Header = () => {
           ) : null}
 
           <li className="nav-item" title="Profile">
-            <button onClick={() => navigate("/profile")}>
+            <button onClick={() => navigate(`/profile/${user.username}`)}>
               <div className="user-avatar">
-                {user.avatarURL ? (
-                  <img src={user.avatarURL} alt="user-profile" />
+                {user?.avatarURL !== "" ? (
+                  <img src={user?.avatarURL} alt="user-profile" />
                 ) : (
-                  <p className="avatar-text">{`${user.firstName[0].toUpperCase()}${user.lastName[0].toUpperCase()}`}</p>
+                  <p className="avatar-text">{`${user?.firstName[0].toUpperCase()}${user?.lastName[0].toUpperCase()}`}</p>
                 )}
               </div>
             </button>

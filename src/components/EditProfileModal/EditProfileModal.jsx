@@ -7,15 +7,18 @@ import { saveImageToCloudindary } from "../../services/";
 import { AiFillCamera, AiOutlineClose } from "react-icons/ai";
 import "./EditProfileModal.css";
 
-const EditProfileModal = ({ setShowEditModal, showEditModal, userProfile }) => {
+const EditProfileModal = ({
+  setShowEditModal,
+  showEditModal,
+  userProfile,
+  setUserProfile,
+}) => {
   const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const reader = new FileReader();
 
-  const [userData, setUserData] = useState({
-    ...userProfile,
-    avatarFile: "",
-  });
+  const initialData = { ...userProfile, avatarFile: {} };
+  const [userData, setUserData] = useState(initialData);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -46,8 +49,8 @@ const EditProfileModal = ({ setShowEditModal, showEditModal, userProfile }) => {
     try {
       const response = await dispatch(editUser({ userData: data, token }));
       if (response.payload.status === 201) {
-        setUserData(response.payload.data.user);
-        dispatch(updateUser(response?.payload.data.user));
+        setUserProfile((prev) => response.payload.data.user);
+        dispatch(updateUser(response.payload.data.user));
         toast.info("Profile Updated Successfully!!");
       } else {
         toast.error(`${response?.payload?.data?.errors[0]}`);
@@ -99,13 +102,13 @@ const EditProfileModal = ({ setShowEditModal, showEditModal, userProfile }) => {
         <span className="edit-profile-text">Avatar</span>
         <div className="avatar">
           <div className="edit-profile-img-container">
-            {userProfile.avatarURL || userData.avatarURL ? (
+            {userProfile?.avatarURL !== "" || userData?.avatarURL !== "" ? (
               <img
                 src={userData?.avatarURL || userProfile?.avatarURL}
                 alt="user"
               />
             ) : (
-              <p className="edit-avatar-text">{`${userData.firstName[0].toUpperCase()}${userData.lastName[0].toUpperCase()}`}</p>
+              <p className="edit-avatar-text">{`${userData?.firstName[0].toUpperCase()}${userData?.lastName[0].toUpperCase()}`}</p>
             )}
           </div>
           <label htmlFor="change-profile">
@@ -126,7 +129,7 @@ const EditProfileModal = ({ setShowEditModal, showEditModal, userProfile }) => {
         <textarea
           name="bio"
           placeholder="I like to do"
-          value={userData.bio}
+          value={userData?.bio || userProfile?.bio}
           onChange={changeHandler}
         ></textarea>
       </div>
@@ -137,7 +140,7 @@ const EditProfileModal = ({ setShowEditModal, showEditModal, userProfile }) => {
           type="url"
           name="website"
           placeholder="https://www.example.com"
-          value={userData.website}
+          value={userData?.website || userProfile?.website}
           onChange={changeHandler}
         />
       </div>

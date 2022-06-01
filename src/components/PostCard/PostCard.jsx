@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import userImgTwo from "../../assets/userTwo.jpg";
 import {
   BsThreeDotsVertical,
@@ -27,14 +28,18 @@ const PostCard = ({
   const [showMenu, setShowMenu] = useToggle(false);
   const [comment, setComment] = useState("");
 
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
 
-  const likedByUser = likedBy.some((like) => like.username === user.username);
+  const likedByUser = likedBy.some((like) => like.username === user?.username);
 
   return (
     <div className="post-card">
       <div className="post-card-header">
-        <div className="post-card-user-info">
+        <div
+          className="post-card-user-info"
+          onClick={() => navigate(`/profile/${username}`)}
+        >
           <div className="user-avatar">
             <img src={avatarURL} alt="user" />
           </div>

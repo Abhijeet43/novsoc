@@ -68,6 +68,7 @@
 
 .post-card-user-info {
   display: flex;
+  cursor: pointer;
 }
 
 .user-info-details {

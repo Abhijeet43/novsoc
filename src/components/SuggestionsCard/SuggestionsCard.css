@@ -42,3 +42,8 @@
   color: var(--primary-color);
   background-color: var(--lynx-purple-color);
 }
+
+.user-details {
+  display: flex;
+  cursor: pointer;
+}

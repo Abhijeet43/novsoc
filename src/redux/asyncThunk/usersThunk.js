@@ -14,4 +14,44 @@ const getUsers = createAsyncThunk("users/allUsers", async (rejectWithValue) => {
   }
 });
 
-export { getUsers };
+const followUser = createAsyncThunk(
+  "users/follow",
+  async ({ userId, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/users/follow/${userId}`,
+        {},
+        { headers: { authorization: token } }
+      );
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        data: error.response.data,
+        status: error.response.status,
+      });
+    }
+  }
+);
+
+const unfollowUser = createAsyncThunk(
+  "users/unfollow",
+  async ({ userId, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/users/unfollow/${userId}`,
+        {},
+        { headers: { authorization: token } }
+      );
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        data: error.response.data,
+        status: error.response.status,
+      });
+    }
+  }
+);
+
+export { getUsers, followUser, unfollowUser };

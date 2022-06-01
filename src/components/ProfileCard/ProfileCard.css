@@ -84,3 +84,9 @@
   font-size: var(--font-size-1);
   font-weight: bold;
 }
+
+.website-link {
+  color: var(--primary-color);
+  text-transform: lowercase;
+  font-size: var(--font-size-5);
+}
