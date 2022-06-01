@@ -27,8 +27,6 @@ const Profile = () => {
     getUserPosts(setUserPosts, username);
   }, [username, users, posts]);
 
-  console.log(userProfile);
-
   return (
     <>
       <Header />
@@ -48,12 +46,12 @@ const Profile = () => {
               onClick={() => setShowEditModal(false)}
             ></div>
 
-            {/* <EditProfileModal
+            <EditProfileModal
               showEditModal={showEditModal}
               setShowEditModal={setShowEditModal}
               setUserProfile={setUserProfile}
               userProfile={userProfile}
-            /> */}
+            />
 
             <section className="card-container">
               <h2 className="post-heading">Posts</h2>
