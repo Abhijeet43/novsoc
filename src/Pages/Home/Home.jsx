@@ -20,9 +20,9 @@ const Home = () => {
   }, [dispatch]);
 
   let feedUsers = user.followers
-    ? user.followers.map((user) => user.username)
+    ? user.followers.map((user) => user?.username)
     : null;
-  feedUsers = [...feedUsers, user.username];
+  feedUsers = [...feedUsers, user?.username];
 
   const feedPosts = posts.filter((post) => feedUsers.includes(post.username));
 

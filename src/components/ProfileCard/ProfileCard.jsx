@@ -1,21 +1,31 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logoutUser } from "../../redux/slices/";
+import { logoutUser, updateUser } from "../../redux/slices/";
 import { useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { toast } from "react-toastify";
+import { followUser } from "../../redux/asyncThunk/";
 import "./ProfileCard.css";
 
 const ProfileCard = ({ userData, posts, setShowEditModal }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
 
   const logoutHandler = () => {
     dispatch(logoutUser());
     navigate("/");
     toast.success("Logged Out Successfully!!");
+  };
+
+  const followUserHandler = async (userId, token) => {
+    const response = await dispatch(followUser({ userId, token }));
+    if (response.payload.status === 200) {
+      dispatch(updateUser(response.payload.data?.user));
+    } else {
+      toast.error(response.payload.data.errors[0]);
+    }
   };
 
   return (
@@ -37,7 +47,12 @@ const ProfileCard = ({ userData, posts, setShowEditModal }) => {
 
       <div className="profile-actions">
         {user?.username !== userData?.username ? (
-          <button className="btn btn-primary profile-btn">Follow</button>
+          <button
+            className="btn btn-primary profile-btn"
+            onClick={() => followUserHandler(userData._id, token)}
+          >
+            Follow
+          </button>
         ) : (
           <>
             <button

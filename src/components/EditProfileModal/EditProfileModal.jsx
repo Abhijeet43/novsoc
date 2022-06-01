@@ -20,8 +20,6 @@ const EditProfileModal = ({
   const initialData = { ...userProfile, avatarFile: {} };
   const [userData, setUserData] = useState(initialData);
 
-  console.log(userProfile);
-
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setUserData((prev) => ({ ...prev, [name]: value }));

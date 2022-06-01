@@ -29,7 +29,7 @@ const PostCard = ({
 
   const { user } = useSelector((state) => state.auth);
 
-  const likedByUser = likedBy.some((like) => like.username === user.username);
+  const likedByUser = likedBy.some((like) => like.username === user?.username);
 
   return (
     <div className="post-card">
