@@ -10,10 +10,13 @@ import {
 } from "react-icons/bs";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { useToggle } from "../../hooks/useToggle";
+import { useDispatch } from "react-redux";
+import { deletePost } from "../../redux/asyncThunk";
 import "./PostCard.css";
+import { toast } from "react-toastify";
 
-const PostCard = ({
-  post: {
+const PostCard = ({ post }) => {
+  const {
     _id: id,
     firstName,
     lastName,
@@ -23,16 +26,31 @@ const PostCard = ({
     img,
     likes: { likeCount, likedBy },
     comments,
-  },
-}) => {
+  } = post;
   const [showComment, setShowComment] = useToggle(false);
   const [showMenu, setShowMenu] = useToggle(false);
   const [comment, setComment] = useState("");
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
 
   const likedByUser = likedBy.some((like) => like.username === user?.username);
+
+  const deletePostHandler = async (post) => {
+    const response = await dispatch(deletePost({ post, token }));
+    try {
+      if (response?.payload.status === 201) {
+        toast.info("Post Deleted Successfully!!");
+      } else {
+        toast.error(`${response.payload.data.errors[0]}`);
+      }
+    } catch (error) {
+      toast.error(error);
+    } finally {
+      setShowMenu(false);
+    }
+  };
 
   return (
     <div className="post-card">
@@ -61,7 +79,12 @@ const PostCard = ({
             }`}
           >
             <li className="post-card-menu-item">Edit</li>
-            <li className="post-card-menu-item">Delete</li>
+            <li
+              className="post-card-menu-item"
+              onClick={() => deletePostHandler(post)}
+            >
+              Delete
+            </li>
           </ul>
         </div>
       </div>

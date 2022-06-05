@@ -133,7 +133,6 @@ const CreatePostModal = ({ setShowPostModal, showPostModal }) => {
           </div>
         </div>
       </div>
-      {console.log(postImg)}
     </>
   );
 };
