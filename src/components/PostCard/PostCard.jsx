@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import userImgTwo from "../../assets/userTwo.jpg";
+import { CommentCard } from "../index";
 import {
   BsThreeDotsVertical,
   BsHeart,
@@ -14,6 +14,7 @@ import "./PostCard.css";
 
 const PostCard = ({
   post: {
+    _id: id,
     firstName,
     lastName,
     username,
@@ -86,7 +87,7 @@ const PostCard = ({
           >
             <VscCommentDiscussion />
           </button>
-          <p className="counter-value">{comments.length}</p>
+          <p className="counter-value">{comments?.length}</p>
         </div>
         <div className="post-card-action">
           <button className="post-card-action-btn flex">
@@ -113,30 +114,11 @@ const PostCard = ({
         </div>
       ) : null}
 
-      {comments.length > 0 ? (
+      {comments?.length > 0 ? (
         <div className="post-cards-container">
-          <div className="post-card-comments">
-            <div className="comments-avatar">
-              <img src={userImgTwo} alt="user" />
-            </div>
-            <div className="comments-content">
-              <h4>
-                John Doe <span className="comments-handle">@johnd</span>
-              </h4>
-              <p>What about you?</p>
-            </div>
-          </div>
-          <div className="post-card-comments">
-            <div className="comments-avatar">
-              <img src={userImgTwo} alt="user" />
-            </div>
-            <div className="comments-content">
-              <h4>
-                John Doe <span className="comments-handle">@johnd</span>
-              </h4>
-              <p>What about you?</p>
-            </div>
-          </div>
+          {comments.map((comment) => (
+            <CommentCard key={comment._id} comment={comment} postId={id} />
+          ))}
         </div>
       ) : null}
     </div>

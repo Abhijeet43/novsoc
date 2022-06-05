@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Header,
   PostCard,
@@ -11,6 +11,7 @@ import { getPosts } from "../../redux/asyncThunk/";
 import "./Home.css";
 
 const Home = () => {
+  const [showPostModal, setShowPostModal] = useState(false);
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
@@ -27,7 +28,7 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <Header setShowPostModal={setShowPostModal} />
       <main className="main-section">
         <section className="main-container">
           <section className="card-container">
@@ -214,7 +215,10 @@ const Home = () => {
 
           <Suggestions />
         </section>
-        <CreatePostModal />
+        <CreatePostModal
+          showPostModal={showPostModal}
+          setShowPostModal={setShowPostModal}
+        />
       </main>
     </>
   );

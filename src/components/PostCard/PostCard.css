@@ -136,29 +136,3 @@
   cursor: not-allowed;
   filter: brightness(180%);
 }
-
-.post-card-comments {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 0;
-}
-
-.comments-avatar {
-  width: 3rem;
-  height: 3rem;
-  margin-right: 1rem;
-}
-
-.comments-content {
-  font-size: var(--font-size-6);
-}
-
-.comments-handle {
-  font-size: var(--font-size-7);
-  color: var(--lynx-gray-color);
-  font-weight: normal;
-}
-
-.comments-avatar img {
-  border-radius: 50%;
-}

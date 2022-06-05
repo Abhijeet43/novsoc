@@ -2,13 +2,12 @@ import React from "react";
 import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { MdOutlineExplore } from "react-icons/md";
 import { BsBookmark } from "react-icons/bs";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Header.css";
 
-const Header = () => {
+const Header = ({ setShowPostModal }) => {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const { user } = useSelector((state) => state.auth);
 
@@ -36,13 +35,14 @@ const Header = () => {
               <BsBookmark title="Bookmark" />
             </NavLink>
           </li>
-          {location.pathname === "/home" ? (
-            <li className="nav-item">
-              <button className="create-post-btn">
-                <AiOutlinePlusCircle title="Create Post" />
-              </button>
-            </li>
-          ) : null}
+          <li className="nav-item">
+            <button
+              className="create-post-btn"
+              onClick={() => setShowPostModal(true)}
+            >
+              <AiOutlinePlusCircle title="Create Post" />
+            </button>
+          </li>
 
           <li className="nav-item" title="Profile">
             <button onClick={() => navigate(`/profile/${user.username}`)}>

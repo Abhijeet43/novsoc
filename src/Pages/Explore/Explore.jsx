@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Header, PostCard, Suggestions, Sort } from "../../components/";
+import {
+  Header,
+  PostCard,
+  Suggestions,
+  Sort,
+  CreatePostModal,
+} from "../../components/";
 import "./Explore.css";
 
 const Explore = () => {
+  const [showPostModal, setShowPostModal] = useState(false);
   const { posts } = useSelector((state) => state.posts);
 
   return (
     <>
-      <Header />
+      <Header setShowPostModal={setShowPostModal} />
       <main className="main-section">
         <section className="main-container">
           <section className="card-container">
@@ -19,6 +26,10 @@ const Explore = () => {
           </section>
 
           <Suggestions />
+          <CreatePostModal
+            showPostModal={showPostModal}
+            setShowPostModal={setShowPostModal}
+          />
         </section>
       </main>
     </>

@@ -5,6 +5,7 @@ import {
   ProfileCard,
   EditProfileModal,
   Suggestions,
+  CreatePostModal,
 } from "../../components/";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -13,6 +14,7 @@ import { getUser, getUserPosts } from "../../services";
 import "./Profile.css";
 
 const Profile = () => {
+  const [showPostModal, setShowPostModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const { username } = useParams();
 
@@ -29,7 +31,7 @@ const Profile = () => {
 
   return (
     <>
-      <Header />
+      <Header setShowPostModal={setShowPostModal} />
       <main className="main-section">
         <section className="main-container">
           <section>
@@ -235,8 +237,11 @@ const Profile = () => {
               )}
             </section>
           </section>
-
           <Suggestions />
+          <CreatePostModal
+            showPostModal={showPostModal}
+            setShowPostModal={setShowPostModal}
+          />
         </section>
       </main>
     </>
