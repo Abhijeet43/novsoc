@@ -52,4 +52,26 @@ const deletePost = createAsyncThunk(
   }
 );
 
-export { getPosts, addPost, deletePost };
+const editPost = createAsyncThunk(
+  "posts/editPost",
+  async ({ updatedData: postData, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/posts/edit/${postData._id}`,
+        { postData },
+        {
+          headers: { authorization: token },
+        }
+      );
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        data: error.response.data,
+        status: error.response.status,
+      });
+    }
+  }
+);
+
+export { getPosts, addPost, deletePost, editPost };

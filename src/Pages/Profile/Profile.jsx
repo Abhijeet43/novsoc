@@ -58,7 +58,9 @@ const Profile = () => {
             <section className="card-container">
               <h2 className="post-heading">Posts</h2>
               {userPosts.length > 0 ? (
-                userPosts.map((post) => <PostCard key={post._id} post={post} />)
+                [...userPosts]
+                  ?.reverse()
+                  .map((post) => <PostCard key={post._id} post={post} />)
               ) : (
                 <>
                   <h2 className="no-post-text">No posts to show</h2>
@@ -238,10 +240,12 @@ const Profile = () => {
             </section>
           </section>
           <Suggestions />
-          <CreatePostModal
-            showPostModal={showPostModal}
-            setShowPostModal={setShowPostModal}
-          />
+          {showPostModal ? (
+            <CreatePostModal
+              showPostModal={showPostModal}
+              setShowPostModal={setShowPostModal}
+            />
+          ) : null}
         </section>
       </main>
     </>

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import { getPosts, addPost, deletePost } from "../asyncThunk/";
+import { getPosts, addPost, deletePost, editPost } from "../asyncThunk/";
 
 const initialState = { posts: [], isLoading: false };
 
@@ -39,6 +39,17 @@ const postsSlice = createSlice({
       state.posts = action.payload.data.posts;
     },
     [deletePost.rejected]: (state, action) => {
+      state.isLoading = false;
+      toast.error(action.payload.data.errors[0]);
+    },
+    [editPost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [editPost.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.posts = action.payload.data.posts;
+    },
+    [editPost.rejected]: (state, action) => {
       state.isLoading = false;
       toast.error(action.payload.data.errors[0]);
     },

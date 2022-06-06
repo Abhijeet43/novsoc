@@ -34,7 +34,9 @@ const Home = () => {
           <section className="card-container">
             <Sort />
             {feedPosts.length > 0 ? (
-              feedPosts.map((post) => <PostCard key={post._id} post={post} />)
+              feedPosts
+                .reverse()
+                .map((post) => <PostCard key={post._id} post={post} />)
             ) : (
               <>
                 <h2 className="no-post-text">No posts to show</h2>
@@ -215,10 +217,12 @@ const Home = () => {
 
           <Suggestions />
         </section>
-        <CreatePostModal
-          showPostModal={showPostModal}
-          setShowPostModal={setShowPostModal}
-        />
+        {showPostModal ? (
+          <CreatePostModal
+            showPostModal={showPostModal}
+            setShowPostModal={setShowPostModal}
+          />
+        ) : null}
       </main>
     </>
   );

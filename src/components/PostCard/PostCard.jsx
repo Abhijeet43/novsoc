@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { CommentCard } from "../index";
 import {
@@ -10,10 +10,10 @@ import {
 } from "react-icons/bs";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { useToggle } from "../../hooks/useToggle";
-import { useDispatch } from "react-redux";
+import { CreatePostModal } from "../index";
 import { deletePost } from "../../redux/asyncThunk";
-import "./PostCard.css";
 import { toast } from "react-toastify";
+import "./PostCard.css";
 
 const PostCard = ({ post }) => {
   const {
@@ -28,6 +28,7 @@ const PostCard = ({ post }) => {
     comments,
   } = post;
   const [showComment, setShowComment] = useToggle(false);
+  const [showPostModal, setShowPostModal] = useState(false);
   const [showMenu, setShowMenu] = useToggle(false);
   const [comment, setComment] = useState("");
 
@@ -70,22 +71,32 @@ const PostCard = ({ post }) => {
           </div>
         </div>
         <div className="post-card-header-actions">
-          <button className="post-card-menu-btn" onClick={setShowMenu}>
-            <BsThreeDotsVertical />
-          </button>
-          <ul
-            className={`post-card-menu ${
-              showMenu ? "post-card-menu-active" : ""
-            }`}
-          >
-            <li className="post-card-menu-item">Edit</li>
-            <li
-              className="post-card-menu-item"
-              onClick={() => deletePostHandler(post)}
-            >
-              Delete
-            </li>
-          </ul>
+          {username === user.username ? (
+            <>
+              <button className="post-card-menu-btn" onClick={setShowMenu}>
+                <BsThreeDotsVertical />
+              </button>
+              {showMenu ? (
+                <ul className="post-card-menu post-card-menu-active">
+                  <li
+                    className="post-card-menu-item"
+                    onClick={() => {
+                      setShowPostModal(true);
+                      setShowMenu(false);
+                    }}
+                  >
+                    Edit
+                  </li>
+                  <li
+                    className="post-card-menu-item"
+                    onClick={() => deletePostHandler(post)}
+                  >
+                    Delete
+                  </li>
+                </ul>
+              ) : null}
+            </>
+          ) : null}
         </div>
       </div>
       <div className="post-card-content">
@@ -143,6 +154,15 @@ const PostCard = ({ post }) => {
             <CommentCard key={comment._id} comment={comment} postId={id} />
           ))}
         </div>
+      ) : null}
+
+      {showPostModal ? (
+        <CreatePostModal
+          showPostModal={showPostModal}
+          setShowPostModal={setShowPostModal}
+          editData={true}
+          postData={post}
+        />
       ) : null}
     </div>
   );
