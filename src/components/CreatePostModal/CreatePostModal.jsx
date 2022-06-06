@@ -78,6 +78,7 @@ const CreatePostModal = ({
       } else {
         toast.warning("File size should be less than 5MB");
         reader.abort();
+        setMedia({ mediaURL: "", mediaFile: {} });
       }
     };
   };
