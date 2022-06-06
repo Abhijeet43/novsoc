@@ -8,3 +8,4 @@ export { Sort } from "./Sort/Sort";
 export { ProfileCard } from "./ProfileCard/ProfileCard";
 export { EditProfileModal } from "./EditProfileModal/EditProfileModal";
 export { Suggestions } from "./Suggestions/Suggestions";
+export { CommentCard } from "./CommentCard/CommentCard";

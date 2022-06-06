@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Header,
   PostCard,
@@ -11,6 +11,7 @@ import { getPosts } from "../../redux/asyncThunk/";
 import "./Home.css";
 
 const Home = () => {
+  const [showPostModal, setShowPostModal] = useState(false);
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
@@ -27,13 +28,15 @@ const Home = () => {
 
   return (
     <>
-      <Header />
+      <Header setShowPostModal={setShowPostModal} />
       <main className="main-section">
         <section className="main-container">
           <section className="card-container">
             <Sort />
             {feedPosts.length > 0 ? (
-              feedPosts.map((post) => <PostCard key={post._id} post={post} />)
+              feedPosts
+                .reverse()
+                .map((post) => <PostCard key={post._id} post={post} />)
             ) : (
               <>
                 <h2 className="no-post-text">No posts to show</h2>
@@ -214,7 +217,12 @@ const Home = () => {
 
           <Suggestions />
         </section>
-        <CreatePostModal />
+        {showPostModal ? (
+          <CreatePostModal
+            showPostModal={showPostModal}
+            setShowPostModal={setShowPostModal}
+          />
+        ) : null}
       </main>
     </>
   );

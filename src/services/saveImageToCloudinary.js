@@ -29,7 +29,7 @@ const saveImageToCloudindary = async (
         if (from === "post") {
           updatedData = { ...inputData, img: data.url };
         } else {
-          updatedData = { ...inputData, avatarUrl: data.secure_url };
+          updatedData = { ...inputData, avatarURL: data.secure_url };
         }
         saveData(updatedData);
       })

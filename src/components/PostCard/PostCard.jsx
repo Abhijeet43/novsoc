@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import userImgTwo from "../../assets/userTwo.jpg";
+import { CommentCard } from "../index";
 import {
   BsThreeDotsVertical,
   BsHeart,
@@ -10,10 +10,14 @@ import {
 } from "react-icons/bs";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { useToggle } from "../../hooks/useToggle";
+import { CreatePostModal } from "../index";
+import { deletePost } from "../../redux/asyncThunk";
+import { toast } from "react-toastify";
 import "./PostCard.css";
 
-const PostCard = ({
-  post: {
+const PostCard = ({ post }) => {
+  const {
+    _id: id,
     firstName,
     lastName,
     username,
@@ -22,16 +26,32 @@ const PostCard = ({
     img,
     likes: { likeCount, likedBy },
     comments,
-  },
-}) => {
+  } = post;
   const [showComment, setShowComment] = useToggle(false);
+  const [showPostModal, setShowPostModal] = useState(false);
   const [showMenu, setShowMenu] = useToggle(false);
   const [comment, setComment] = useState("");
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
 
   const likedByUser = likedBy.some((like) => like.username === user?.username);
+
+  const deletePostHandler = async (post) => {
+    const response = await dispatch(deletePost({ post, token }));
+    try {
+      if (response?.payload.status === 201) {
+        toast.info("Post Deleted Successfully!!");
+      } else {
+        toast.error(`${response.payload.data.errors[0]}`);
+      }
+    } catch (error) {
+      toast.error(error);
+    } finally {
+      setShowMenu(false);
+    }
+  };
 
   return (
     <div className="post-card">
@@ -41,7 +61,10 @@ const PostCard = ({
           onClick={() => navigate(`/profile/${username}`)}
         >
           <div className="user-avatar">
-            <img src={avatarURL} alt="user" />
+            <img
+              src={username === user.username ? user.avatarURL : avatarURL}
+              alt="user"
+            />
           </div>
           <div className="user-info-details">
             <h3>{`${firstName} ${lastName}`}</h3>
@@ -51,17 +74,32 @@ const PostCard = ({
           </div>
         </div>
         <div className="post-card-header-actions">
-          <button className="post-card-menu-btn" onClick={setShowMenu}>
-            <BsThreeDotsVertical />
-          </button>
-          <ul
-            className={`post-card-menu ${
-              showMenu ? "post-card-menu-active" : ""
-            }`}
-          >
-            <li className="post-card-menu-item">Edit</li>
-            <li className="post-card-menu-item">Delete</li>
-          </ul>
+          {username === user.username ? (
+            <>
+              <button className="post-card-menu-btn" onClick={setShowMenu}>
+                <BsThreeDotsVertical />
+              </button>
+              {showMenu ? (
+                <ul className="post-card-menu post-card-menu-active">
+                  <li
+                    className="post-card-menu-item"
+                    onClick={() => {
+                      setShowPostModal(true);
+                      setShowMenu(false);
+                    }}
+                  >
+                    Edit
+                  </li>
+                  <li
+                    className="post-card-menu-item"
+                    onClick={() => deletePostHandler(post)}
+                  >
+                    Delete
+                  </li>
+                </ul>
+              ) : null}
+            </>
+          ) : null}
         </div>
       </div>
       <div className="post-card-content">
@@ -86,7 +124,7 @@ const PostCard = ({
           >
             <VscCommentDiscussion />
           </button>
-          <p className="counter-value">{comments.length}</p>
+          <p className="counter-value">{comments?.length}</p>
         </div>
         <div className="post-card-action">
           <button className="post-card-action-btn flex">
@@ -113,31 +151,21 @@ const PostCard = ({
         </div>
       ) : null}
 
-      {comments.length > 0 ? (
+      {comments?.length > 0 ? (
         <div className="post-cards-container">
-          <div className="post-card-comments">
-            <div className="comments-avatar">
-              <img src={userImgTwo} alt="user" />
-            </div>
-            <div className="comments-content">
-              <h4>
-                John Doe <span className="comments-handle">@johnd</span>
-              </h4>
-              <p>What about you?</p>
-            </div>
-          </div>
-          <div className="post-card-comments">
-            <div className="comments-avatar">
-              <img src={userImgTwo} alt="user" />
-            </div>
-            <div className="comments-content">
-              <h4>
-                John Doe <span className="comments-handle">@johnd</span>
-              </h4>
-              <p>What about you?</p>
-            </div>
-          </div>
+          {comments.map((comment) => (
+            <CommentCard key={comment._id} comment={comment} postId={id} />
+          ))}
         </div>
+      ) : null}
+
+      {showPostModal ? (
+        <CreatePostModal
+          showPostModal={showPostModal}
+          setShowPostModal={setShowPostModal}
+          editData={true}
+          postData={post}
+        />
       ) : null}
     </div>
   );

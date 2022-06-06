@@ -1,24 +1,44 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { Header, PostCard, Suggestions, Sort } from "../../components/";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  Header,
+  PostCard,
+  Suggestions,
+  Sort,
+  CreatePostModal,
+} from "../../components/";
+import { getPosts } from "../../redux/asyncThunk/";
 import "./Explore.css";
 
 const Explore = () => {
+  const [showPostModal, setShowPostModal] = useState(false);
   const { posts } = useSelector((state) => state.posts);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return (
     <>
-      <Header />
+      <Header setShowPostModal={setShowPostModal} />
       <main className="main-section">
         <section className="main-container">
           <section className="card-container">
             <Sort />
-            {posts.map((post) => (
+            {[...posts]?.reverse().map((post) => (
               <PostCard key={post._id} post={post} />
             ))}
           </section>
 
           <Suggestions />
+          {showPostModal ? (
+            <CreatePostModal
+              showPostModal={showPostModal}
+              setShowPostModal={setShowPostModal}
+            />
+          ) : null}
         </section>
       </main>
     </>
