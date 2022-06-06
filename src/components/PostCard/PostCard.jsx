@@ -61,7 +61,10 @@ const PostCard = ({ post }) => {
           onClick={() => navigate(`/profile/${username}`)}
         >
           <div className="user-avatar">
-            <img src={avatarURL} alt="user" />
+            <img
+              src={username === user.username ? user.avatarURL : avatarURL}
+              alt="user"
+            />
           </div>
           <div className="user-info-details">
             <h3>{`${firstName} ${lastName}`}</h3>
