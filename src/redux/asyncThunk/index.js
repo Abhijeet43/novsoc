@@ -6,4 +6,5 @@ export {
   deletePost,
   editPost,
   likePost,
+  dislikePost,
 } from "./postsThunk";

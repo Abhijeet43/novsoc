@@ -11,7 +11,7 @@ import {
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { useToggle } from "../../hooks/useToggle";
 import { CreatePostModal } from "../index";
-import { deletePost, likePost } from "../../redux/asyncThunk";
+import { deletePost, likePost, dislikePost } from "../../redux/asyncThunk";
 import { toast } from "react-toastify";
 import "./PostCard.css";
 
@@ -39,7 +39,9 @@ const PostCard = ({ post }) => {
   const likedByUser = likedBy.some((like) => like.username === user?.username);
 
   const likeHandler = async (postId) =>
-    likedByUser ? null : await dispatch(likePost({ postId, token }));
+    likedByUser
+      ? await dispatch(dislikePost({ postId, token }))
+      : await dispatch(likePost({ postId, token }));
 
   const deletePostHandler = async (post) => {
     const response = await dispatch(deletePost({ post, token }));
