@@ -102,7 +102,7 @@
   color: var(--primary-color);
 }
 
-.liked {
+.liked,.bookmarked {
   fill: var(--primary-color);
 }
 

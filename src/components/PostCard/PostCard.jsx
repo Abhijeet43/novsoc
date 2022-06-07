@@ -6,12 +6,19 @@ import {
   BsThreeDotsVertical,
   BsHeart,
   BsBookmark,
+  BsFillBookmarkFill,
   BsFillHeartFill,
 } from "react-icons/bs";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { useToggle } from "../../hooks/useToggle";
 import { CreatePostModal } from "../index";
-import { deletePost } from "../../redux/asyncThunk";
+import {
+  deletePost,
+  likePost,
+  dislikePost,
+  bookmarkPost,
+  removeFromBookmark,
+} from "../../redux/asyncThunk";
 import { toast } from "react-toastify";
 import "./PostCard.css";
 
@@ -34,9 +41,22 @@ const PostCard = ({ post }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, token } = useSelector((state) => state.auth);
+
+  const { user, token, bookmarks } = useSelector((state) => state.auth);
 
   const likedByUser = likedBy.some((like) => like.username === user?.username);
+
+  const likeHandler = async (postId) =>
+    likedByUser
+      ? await dispatch(dislikePost({ postId, token }))
+      : await dispatch(likePost({ postId, token }));
+
+  const bookmarkedByUser = bookmarks.some((currId) => currId === id);
+
+  const bookmarkHandler = async (postId) =>
+    bookmarkedByUser
+      ? await dispatch(removeFromBookmark({ postId, token }))
+      : await dispatch(bookmarkPost({ postId, token }));
 
   const deletePostHandler = async (post) => {
     const response = await dispatch(deletePost({ post, token }));
@@ -112,7 +132,12 @@ const PostCard = ({ post }) => {
       </div>
       <div className="post-card-actions">
         <div className="post-card-action flex">
-          <button className="post-card-action-btn flex">
+          <button
+            className="post-card-action-btn flex"
+            onClick={() => {
+              likeHandler(id);
+            }}
+          >
             {likedByUser ? <BsFillHeartFill className="liked" /> : <BsHeart />}
           </button>
           <p className="counter-value">{likeCount}</p>
@@ -127,8 +152,15 @@ const PostCard = ({ post }) => {
           <p className="counter-value">{comments?.length}</p>
         </div>
         <div className="post-card-action">
-          <button className="post-card-action-btn flex">
-            <BsBookmark />
+          <button
+            className="post-card-action-btn flex"
+            onClick={() => bookmarkHandler(id)}
+          >
+            {bookmarkedByUser ? (
+              <BsFillBookmarkFill className="bookmarked" />
+            ) : (
+              <BsBookmark />
+            )}
           </button>
         </div>
       </div>
