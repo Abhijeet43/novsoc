@@ -15,4 +15,5 @@ export {
   likePost,
   dislikePost,
   addComment,
+  editComment,
 } from "./postsThunk";

@@ -78,7 +78,6 @@ const PostCard = ({ post }) => {
   };
 
   // ADD COMMENT
-
   const addCommentHandler = async () => {
     const response = await dispatch(addComment({ id, comment, token }));
     if (response?.payload.status === 201) {

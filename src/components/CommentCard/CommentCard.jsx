@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useToggle } from "../../hooks/useToggle";
+import { EditCommentModal } from "../index";
 import "./CommentCard.css";
 
-const CommentCard = ({ comment }) => {
+const CommentCard = ({ comment, postId }) => {
   const [showCommentMenu, setShowCommentMenu] = useToggle(false);
+  const [showCommentModal, setShowCommentModal] = useState(false);
   const { user } = useSelector((state) => state.auth);
   return (
     <div className="post-card-comments-container">
@@ -34,11 +36,28 @@ const CommentCard = ({ comment }) => {
             </button>
             {showCommentMenu ? (
               <ul className="comments-menu">
-                <li className="comments-menu-item">Edit</li>
+                <li
+                  className="comments-menu-item"
+                  onClick={() => {
+                    setShowCommentModal(true);
+                    setShowCommentMenu(false);
+                  }}
+                >
+                  Edit
+                </li>
                 <li className="comments-menu-item">Delete</li>
               </ul>
             ) : null}
           </>
+        ) : null}
+
+        {showCommentModal ? (
+          <EditCommentModal
+            setShowCommentModal={setShowCommentModal}
+            postId={postId}
+            commentData={comment.commentData}
+            commentId={comment._id}
+          />
         ) : null}
       </div>
     </div>

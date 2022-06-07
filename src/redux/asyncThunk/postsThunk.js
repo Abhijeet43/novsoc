@@ -136,6 +136,26 @@ const addComment = createAsyncThunk(
   }
 );
 
+const editComment = createAsyncThunk(
+  "posts/editComment",
+  async ({ postId, commentId, comment, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/comments/edit/${postId}/${commentId}`,
+        { commentData: comment },
+        { headers: { authorization: token } }
+      );
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        data: error.response.data,
+        status: error.response.status,
+      });
+    }
+  }
+);
+
 export {
   getPosts,
   addPost,
@@ -144,4 +164,5 @@ export {
   likePost,
   dislikePost,
   addComment,
+  editComment,
 };
