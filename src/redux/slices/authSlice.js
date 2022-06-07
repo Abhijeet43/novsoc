@@ -13,7 +13,6 @@ const initialState = {
   token: localStorage.getItem("token") || null,
   isLoading: false,
   bookmarks: [],
-  isBookmarkLoading: false,
 };
 
 const authSlice = createSlice({
@@ -66,25 +65,25 @@ const authSlice = createSlice({
       console.error(action.error.message);
     },
     [bookmarkPost.pending]: (state) => {
-      state.isBookmarkLoading = true;
+      state.isLoading = true;
     },
     [bookmarkPost.fulfilled]: (state, action) => {
-      state.isBookmarkLoading = false;
+      state.isLoading = false;
       state.bookmarks = action.payload.data.bookmarks;
     },
     [bookmarkPost.rejected]: (state, action) => {
-      state.isBookmarkLoading = false;
+      state.isLoading = false;
       toast.error(action.payload.data.errors[0]);
     },
     [removeFromBookmark.pending]: (state) => {
-      state.isBookmarkLoading = true;
+      state.isLoading = true;
     },
     [removeFromBookmark.fulfilled]: (state, action) => {
-      state.isBookmarkLoading = false;
+      state.isLoading = false;
       state.bookmarks = action.payload.data.bookmarks;
     },
     [removeFromBookmark.rejected]: (state, action) => {
-      state.isBookmarkLoading = false;
+      state.isLoading = false;
       toast.error(action.payload.data.errors[0]);
     },
   },

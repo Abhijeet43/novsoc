@@ -41,9 +41,8 @@ const PostCard = ({ post }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, token, bookmarks, isBookmarkLoading } = useSelector(
-    (state) => state.auth
-  );
+
+  const { user, token, bookmarks } = useSelector((state) => state.auth);
 
   const likedByUser = likedBy.some((like) => like.username === user?.username);
 
@@ -52,7 +51,7 @@ const PostCard = ({ post }) => {
       ? await dispatch(dislikePost({ postId, token }))
       : await dispatch(likePost({ postId, token }));
 
-  const bookmarkedByUser = bookmarks.some((post) => post._id === id);
+  const bookmarkedByUser = bookmarks.some((currId) => currId === id);
 
   const bookmarkHandler = async (postId) =>
     bookmarkedByUser

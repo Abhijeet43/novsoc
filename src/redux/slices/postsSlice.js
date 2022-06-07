@@ -61,25 +61,25 @@ const postsSlice = createSlice({
       toast.error(action.payload.data.errors[0]);
     },
     [likePost.pending]: (state) => {
-      state.isLikeLoading = true;
+      state.isLoading = true;
     },
     [likePost.fulfilled]: (state, action) => {
-      state.isLikeLoading = false;
+      state.isLoading = false;
       state.posts = action.payload.data.posts;
     },
     [likePost.rejected]: (state, action) => {
-      state.isLikeLoading = false;
+      state.isLoading = false;
       toast.error(action.payload.data.errors[0]);
     },
     [dislikePost.pending]: (state) => {
-      state.isLikeLoading = true;
+      state.isLoading = true;
     },
     [dislikePost.fulfilled]: (state, action) => {
-      state.isLikeLoading = false;
+      state.isLoading = false;
       state.posts = action.payload.data.posts;
     },
     [dislikePost.rejected]: (state, action) => {
-      state.isLikeLoading = false;
+      state.isLoading = false;
       toast.error(action.payload.data.errors[0]);
     },
   },
