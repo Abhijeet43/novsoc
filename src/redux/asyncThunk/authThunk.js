@@ -53,4 +53,26 @@ const editUser = createAsyncThunk(
   }
 );
 
-export { loginUser, signupUser, editUser };
+const bookmarkPost = createAsyncThunk(
+  "posts/addBookmark",
+  async ({ postId, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/users/bookmark/${postId}`,
+        {},
+        {
+          headers: { authorization: token },
+        }
+      );
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        data: error.response.data,
+        status: error.response.status,
+      });
+    }
+  }
+);
+
+export { loginUser, signupUser, editUser, bookmarkPost };

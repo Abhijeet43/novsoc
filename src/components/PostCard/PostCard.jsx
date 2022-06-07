@@ -6,12 +6,18 @@ import {
   BsThreeDotsVertical,
   BsHeart,
   BsBookmark,
+  BsFillBookmarkFill,
   BsFillHeartFill,
 } from "react-icons/bs";
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { useToggle } from "../../hooks/useToggle";
 import { CreatePostModal } from "../index";
-import { deletePost, likePost, dislikePost } from "../../redux/asyncThunk";
+import {
+  deletePost,
+  likePost,
+  dislikePost,
+  bookmarkPost,
+} from "../../redux/asyncThunk";
 import { toast } from "react-toastify";
 import "./PostCard.css";
 
@@ -34,7 +40,9 @@ const PostCard = ({ post }) => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, token } = useSelector((state) => state.auth);
+  const { user, token, bookmarks, isBookmarkLoading } = useSelector(
+    (state) => state.auth
+  );
 
   const likedByUser = likedBy.some((like) => like.username === user?.username);
 
@@ -42,6 +50,11 @@ const PostCard = ({ post }) => {
     likedByUser
       ? await dispatch(dislikePost({ postId, token }))
       : await dispatch(likePost({ postId, token }));
+
+  const bookmarkedByUser = bookmarks.some((post) => post._id === id);
+
+  const bookmarkHandler = async (postId) =>
+    bookmarkedByUser ? null : await dispatch(bookmarkPost({ postId, token }));
 
   const deletePostHandler = async (post) => {
     const response = await dispatch(deletePost({ post, token }));
@@ -137,8 +150,15 @@ const PostCard = ({ post }) => {
           <p className="counter-value">{comments?.length}</p>
         </div>
         <div className="post-card-action">
-          <button className="post-card-action-btn flex">
-            <BsBookmark />
+          <button
+            className="post-card-action-btn flex"
+            onClick={() => bookmarkHandler(id)}
+          >
+            {bookmarkedByUser ? (
+              <BsFillBookmarkFill className="bookmarked" />
+            ) : (
+              <BsBookmark />
+            )}
           </button>
         </div>
       </div>

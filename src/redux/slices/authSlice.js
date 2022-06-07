@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, signupUser, editUser } from "../asyncThunk/";
+import { loginUser, signupUser, editUser, bookmarkPost } from "../asyncThunk/";
 import { toast } from "react-toastify";
 
 const initialState = {
   user: JSON.parse(localStorage.getItem("user")) || null,
   token: localStorage.getItem("token") || null,
   isLoading: false,
+  bookmarks: [],
+  isBookmarkLoading: false,
 };
 
 const authSlice = createSlice({
@@ -56,6 +58,17 @@ const authSlice = createSlice({
     [editUser.rejected]: (state, action) => {
       state.isLoading = false;
       console.error(action.error.message);
+    },
+    [bookmarkPost.pending]: (state) => {
+      state.isBookmarkLoading = true;
+    },
+    [bookmarkPost.fulfilled]: (state, action) => {
+      state.isBookmarkLoading = false;
+      state.bookmarks = action.payload.data.bookmarks;
+    },
+    [bookmarkPost.rejected]: (state, action) => {
+      state.isBookmarkLoading = false;
+      toast.error(action.payload.data.errors[0]);
     },
   },
 });

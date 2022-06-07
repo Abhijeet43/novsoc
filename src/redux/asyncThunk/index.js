@@ -1,4 +1,4 @@
-export { loginUser, signupUser, editUser } from "./authThunk";
+export { loginUser, signupUser, editUser, bookmarkPost } from "./authThunk";
 export { getUsers, followUser, unfollowUser } from "./usersThunk";
 export {
   getPosts,
