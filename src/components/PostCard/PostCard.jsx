@@ -18,6 +18,7 @@ import {
   dislikePost,
   bookmarkPost,
   removeFromBookmark,
+  addComment,
 } from "../../redux/asyncThunk";
 import { toast } from "react-toastify";
 import "./PostCard.css";
@@ -44,6 +45,7 @@ const PostCard = ({ post }) => {
 
   const { user, token, bookmarks } = useSelector((state) => state.auth);
 
+  // LIKE FUNCTIONALITY
   const likedByUser = likedBy.some((like) => like.username === user?.username);
 
   const likeHandler = async (postId) =>
@@ -51,6 +53,7 @@ const PostCard = ({ post }) => {
       ? await dispatch(dislikePost({ postId, token }))
       : await dispatch(likePost({ postId, token }));
 
+  // BOOKMARK FUNCTIONALITY
   const bookmarkedByUser = bookmarks.some((currId) => currId === id);
 
   const bookmarkHandler = async (postId) =>
@@ -58,6 +61,7 @@ const PostCard = ({ post }) => {
       ? await dispatch(removeFromBookmark({ postId, token }))
       : await dispatch(bookmarkPost({ postId, token }));
 
+  // DELETE POST
   const deletePostHandler = async (post) => {
     const response = await dispatch(deletePost({ post, token }));
     try {
@@ -70,6 +74,18 @@ const PostCard = ({ post }) => {
       toast.error(error);
     } finally {
       setShowMenu(false);
+    }
+  };
+
+  // ADD COMMENT
+  const addCommentHandler = async () => {
+    const response = await dispatch(addComment({ id, comment, token }));
+    if (response?.payload.status === 201) {
+      toast.info("Comment Added Successfully!!");
+      setComment("");
+      setShowComment(false);
+    } else {
+      toast.error(response.payload.data.errors[0]);
     }
   };
 
@@ -137,6 +153,7 @@ const PostCard = ({ post }) => {
             onClick={() => {
               likeHandler(id);
             }}
+            title="Like"
           >
             {likedByUser ? <BsFillHeartFill className="liked" /> : <BsHeart />}
           </button>
@@ -146,6 +163,7 @@ const PostCard = ({ post }) => {
           <button
             className="post-card-action-btn flex"
             onClick={setShowComment}
+            title="Comments"
           >
             <VscCommentDiscussion />
           </button>
@@ -155,6 +173,7 @@ const PostCard = ({ post }) => {
           <button
             className="post-card-action-btn flex"
             onClick={() => bookmarkHandler(id)}
+            title="Bookmark"
           >
             {bookmarkedByUser ? (
               <BsFillBookmarkFill className="bookmarked" />
@@ -177,6 +196,7 @@ const PostCard = ({ post }) => {
           <button
             disabled={comment === "" ? true : false}
             className="post-card-action-btn post-btn"
+            onClick={addCommentHandler}
           >
             Post
           </button>
