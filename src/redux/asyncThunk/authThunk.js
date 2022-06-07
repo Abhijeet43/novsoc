@@ -54,7 +54,7 @@ const editUser = createAsyncThunk(
 );
 
 const bookmarkPost = createAsyncThunk(
-  "posts/addBookmark",
+  "users/addBookmark",
   async ({ postId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
@@ -76,7 +76,7 @@ const bookmarkPost = createAsyncThunk(
 );
 
 const removeFromBookmark = createAsyncThunk(
-  "posts/deleteBookmark",
+  "users/deleteBookmark",
   async ({ postId, token }, { rejectWithValue }) => {
     try {
       const response = await axios.post(
@@ -97,4 +97,29 @@ const removeFromBookmark = createAsyncThunk(
   }
 );
 
-export { loginUser, signupUser, editUser, bookmarkPost, removeFromBookmark };
+const getAllBookmarks = createAsyncThunk(
+  "user/bookmarks",
+  async (token, { rejectWithValue }) => {
+    try {
+      const response = await axios.get("/api/users/bookmark", {
+        headers: { authorization: token },
+      });
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        data: error.response.data,
+        status: error.response.status,
+      });
+    }
+  }
+);
+
+export {
+  loginUser,
+  signupUser,
+  editUser,
+  bookmarkPost,
+  removeFromBookmark,
+  getAllBookmarks,
+};

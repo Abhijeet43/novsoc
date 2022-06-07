@@ -4,6 +4,7 @@ export {
   editUser,
   bookmarkPost,
   removeFromBookmark,
+  getAllBookmarks,
 } from "./authThunk";
 export { getUsers, followUser, unfollowUser } from "./usersThunk";
 export {

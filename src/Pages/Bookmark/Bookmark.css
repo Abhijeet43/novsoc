@@ -1,0 +1,13 @@
+.center {
+  align-self: center;
+}
+
+.bookmark-container {
+  height: 100vh;
+  justify-content: flex-start;
+}
+
+.bookmark-card-container {
+  width: 60%;
+  align-items: flex-end;
+}

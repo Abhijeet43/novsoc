@@ -5,6 +5,7 @@ import {
   editUser,
   bookmarkPost,
   removeFromBookmark,
+  getAllBookmarks,
 } from "../asyncThunk/";
 import { toast } from "react-toastify";
 
@@ -13,6 +14,7 @@ const initialState = {
   token: localStorage.getItem("token") || null,
   isLoading: false,
   bookmarks: [],
+  bookmarkStatus: "idle",
 };
 
 const authSlice = createSlice({
@@ -85,6 +87,17 @@ const authSlice = createSlice({
     [removeFromBookmark.rejected]: (state, action) => {
       state.isLoading = false;
       toast.error(action.payload.data.errors[0]);
+    },
+    [getAllBookmarks.pending]: (state) => {
+      state.bookmarkStatus = "pending";
+    },
+    [getAllBookmarks.fulfilled]: (state, action) => {
+      state.bookmarkStatus = "resolved";
+      state.bookmarks = action.payload.data.bookmarks;
+    },
+    [getAllBookmarks.rejected]: (state, action) => {
+      state.bookmarkStatus = "rejected";
+      toast.error(action);
     },
   },
 });
