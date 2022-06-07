@@ -15,6 +15,7 @@ const EditCommentModal = ({
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
 
+  //   EDIT COMMENT
   const editCommentHandler = async () => {
     if (comment === "") {
       toast.warning("Comment cannot be empty");
@@ -25,7 +26,7 @@ const EditCommentModal = ({
       if (response?.payload.status === 201) {
         toast.info("Comment updated successfully!!");
       } else {
-        toast.error(response.payload.data.errors);
+        toast.error(response.payload.data.errors[0]);
       }
       setShowCommentModal(false);
     }

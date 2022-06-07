@@ -1,15 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useToggle } from "../../hooks/useToggle";
 import { EditCommentModal } from "../index";
+import { deleteComment } from "../../redux/asyncThunk";
+import { toast } from "react-toastify";
 import "./CommentCard.css";
 
 const CommentCard = ({ comment, postId }) => {
   const [showCommentMenu, setShowCommentMenu] = useToggle(false);
   const [showCommentModal, setShowCommentModal] = useState(false);
-  const { user } = useSelector((state) => state.auth);
+
+  const { user, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  // DELETE COMMENT
+  const deleteCommentHandler = async () => {
+    const response = await dispatch(
+      deleteComment({ postId, commentId: comment._id, token })
+    );
+    if (response?.payload.status === 201) {
+      toast.info("Post deleted successfully!!");
+    } else {
+      toast.error(response.payload.data.errors[0]);
+    }
+  };
+
   return (
     <div className="post-card-comments-container">
       <div className="post-card-comments">
@@ -45,7 +62,15 @@ const CommentCard = ({ comment, postId }) => {
                 >
                   Edit
                 </li>
-                <li className="comments-menu-item">Delete</li>
+                <li
+                  className="comments-menu-item"
+                  onClick={() => {
+                    deleteCommentHandler();
+                    setShowCommentMenu(false);
+                  }}
+                >
+                  Delete
+                </li>
               </ul>
             ) : null}
           </>
