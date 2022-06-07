@@ -11,7 +11,7 @@ import {
 import { VscCommentDiscussion } from "react-icons/vsc";
 import { useToggle } from "../../hooks/useToggle";
 import { CreatePostModal } from "../index";
-import { deletePost } from "../../redux/asyncThunk";
+import { deletePost, likePost } from "../../redux/asyncThunk";
 import { toast } from "react-toastify";
 import "./PostCard.css";
 
@@ -37,6 +37,9 @@ const PostCard = ({ post }) => {
   const { user, token } = useSelector((state) => state.auth);
 
   const likedByUser = likedBy.some((like) => like.username === user?.username);
+
+  const likeHandler = async (postId) =>
+    likedByUser ? null : await dispatch(likePost({ postId, token }));
 
   const deletePostHandler = async (post) => {
     const response = await dispatch(deletePost({ post, token }));
@@ -112,7 +115,12 @@ const PostCard = ({ post }) => {
       </div>
       <div className="post-card-actions">
         <div className="post-card-action flex">
-          <button className="post-card-action-btn flex">
+          <button
+            className="post-card-action-btn flex"
+            onClick={() => {
+              likeHandler(id);
+            }}
+          >
             {likedByUser ? <BsFillHeartFill className="liked" /> : <BsHeart />}
           </button>
           <p className="counter-value">{likeCount}</p>
