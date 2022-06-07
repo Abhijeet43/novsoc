@@ -1,3 +1,9 @@
+.post-card-comments-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
 .post-card-comments {
   display: flex;
   align-items: center;
@@ -22,4 +28,35 @@
 
 .comments-avatar img {
   border-radius: 50%;
+}
+
+.comments-username a {
+  color: var(--black-color);
+}
+
+.comments-action {
+  position: relative;
+  align-self: flex-end;
+}
+
+.comments-menu {
+  position: absolute;
+  border-radius: 3px;
+  right: 1rem;
+  background-color: var(--secondary-color);
+  box-shadow: 0 2px 2px rgb(0 0 0 / 30%);
+}
+
+.comments-menu-item {
+  font-size: var(--font-size-6);
+  border-radius: 3px;
+  cursor: pointer;
+  transform-origin: top right;
+  transition: transform 0.5s ease;
+  border-bottom: 1px solid var(--lynx-gray-color);
+}
+
+.comments-menu-item:hover {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }

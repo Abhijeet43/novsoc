@@ -80,7 +80,36 @@ export const posts = [
     lastName: "Clarke",
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718583/userSix_hjf46y.jpg",
-    comments: [],
+    comments: [
+      {
+        _id: "1b288c33-ff6d-49c0-a8d3-58b297f1453",
+        firstName: "Guest",
+        lastName: "User",
+        username: "Guest123",
+        avatarURL:
+          "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718247/userOne_xot5gc.jpg",
+        commentData: "Very True",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+        createdAt: formatDate(),
+      },
+      {
+        _id: "1b288c33-ff6d-49c0-a8d3-58b297f1452",
+        firstName: "Adarsh",
+        lastName: "Balika",
+        username: "adarshbalika",
+        avatarURL:
+          "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718283/profile_y24uvb.jpg",
+        commentData: "Loved It",
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+        createdAt: formatDate(),
+      },
+    ],
     createdAt: formatDate(),
     updatedAt: formatDate(),
   },

@@ -7,6 +7,7 @@ import {
   editPost,
   likePost,
   dislikePost,
+  addComment,
 } from "../asyncThunk/";
 
 const initialState = { posts: [], isLoading: false };
@@ -79,6 +80,17 @@ const postsSlice = createSlice({
       state.posts = action.payload.data.posts;
     },
     [dislikePost.rejected]: (state, action) => {
+      state.isLoading = false;
+      toast.error(action.payload.data.errors[0]);
+    },
+    [addComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [addComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.posts = action.payload.data.posts;
+    },
+    [addComment.rejected]: (state, action) => {
       state.isLoading = false;
       toast.error(action.payload.data.errors[0]);
     },

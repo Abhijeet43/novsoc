@@ -116,4 +116,32 @@ const dislikePost = createAsyncThunk(
   }
 );
 
-export { getPosts, addPost, deletePost, editPost, likePost, dislikePost };
+const addComment = createAsyncThunk(
+  "posts/addComment",
+  async ({ id, comment, token }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post(
+        `/api/comments/add/${id}`,
+        { commentData: comment },
+        { headers: { authorization: token } }
+      );
+      const data = { data: response.data, status: response.status };
+      return data;
+    } catch (error) {
+      return rejectWithValue({
+        data: error.response.data,
+        status: error.response.status,
+      });
+    }
+  }
+);
+
+export {
+  getPosts,
+  addPost,
+  deletePost,
+  editPost,
+  likePost,
+  dislikePost,
+  addComment,
+};
