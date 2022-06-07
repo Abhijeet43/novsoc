@@ -17,6 +17,7 @@ import {
   likePost,
   dislikePost,
   bookmarkPost,
+  removeFromBookmark,
 } from "../../redux/asyncThunk";
 import { toast } from "react-toastify";
 import "./PostCard.css";
@@ -54,7 +55,9 @@ const PostCard = ({ post }) => {
   const bookmarkedByUser = bookmarks.some((post) => post._id === id);
 
   const bookmarkHandler = async (postId) =>
-    bookmarkedByUser ? null : await dispatch(bookmarkPost({ postId, token }));
+    bookmarkedByUser
+      ? await dispatch(removeFromBookmark({ postId, token }))
+      : await dispatch(bookmarkPost({ postId, token }));
 
   const deletePostHandler = async (post) => {
     const response = await dispatch(deletePost({ post, token }));
