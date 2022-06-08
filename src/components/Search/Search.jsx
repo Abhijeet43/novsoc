@@ -35,7 +35,7 @@ const Search = () => {
           onChange={(e) => setSearch(e.target.value)}
           value={search}
           type="search"
-          placeholder="Search NovSoc"
+          placeholder="Search Users"
         />
       </div>
       {isDebouncing && search ? (
