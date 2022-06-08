@@ -11,3 +11,22 @@
   width: 60%;
   align-items: flex-end;
 }
+
+@media (max-width: 768px) {
+  .bookmark-card-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .no-bookmark-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .no-bookmark-img {
+    display: none;
+  }
+}

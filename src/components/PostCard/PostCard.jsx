@@ -117,6 +117,7 @@ const PostCard = ({ post }) => {
           </div>
           <div className="user-info-details">
             <h3>{`${firstName} ${lastName}`}</h3>
+            <p className="user-info-mob-handle">@{username}</p>
           </div>
           <div className="user-info-handle">
             <p>@{username}</p>

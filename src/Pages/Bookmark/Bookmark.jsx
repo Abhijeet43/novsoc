@@ -52,7 +52,7 @@ const Bookmark = () => {
                     <PostCard key={post._id} post={post} />
                   ))
                 ) : (
-                  <>
+                  <div className="no-bookmark-container">
                     <h2 className="no-post-text">
                       You haven't Bookmarked any post 😓
                     </h2>
@@ -63,6 +63,7 @@ const Bookmark = () => {
                       See Posts
                     </button>
                     <svg
+                      className="no-bookmark-img"
                       xmlns="http://www.w3.org/2000/svg"
                       data-name="Layer 1"
                       width="928.79134"
@@ -233,7 +234,7 @@ const Bookmark = () => {
                         fill="#3f3d56"
                       />
                     </svg>
-                  </>
+                  </div>
                 )}
               </section>
               <Suggestions />
