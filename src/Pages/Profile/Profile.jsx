@@ -6,6 +6,7 @@ import {
   EditProfileModal,
   Suggestions,
   CreatePostModal,
+  Loader,
 } from "../../components/";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -16,6 +17,7 @@ import "./Profile.css";
 const Profile = () => {
   const [showPostModal, setShowPostModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [loader, setLoader] = useState(false);
   const { username } = useParams();
 
   const { posts } = useSelector((state) => state.posts);
@@ -25,12 +27,13 @@ const Profile = () => {
   const [userPosts, setUserPosts] = useState("");
 
   useEffect(() => {
-    getUser(setUserProfile, username);
-    getUserPosts(setUserPosts, username);
+    getUser(setUserProfile, username, setLoader);
+    getUserPosts(setUserPosts, username, setLoader);
   }, [username, users, posts]);
 
   return (
     <>
+      {loader ? <Loader /> : null}
       <Header setShowPostModal={setShowPostModal} />
       <main className="main-section">
         <section className="main-container">

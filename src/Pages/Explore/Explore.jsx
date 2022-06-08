@@ -6,41 +6,49 @@ import {
   Suggestions,
   CreatePostModal,
   Search,
+  Loader,
 } from "../../components/";
 import { getPosts } from "../../redux/asyncThunk/";
 import "./Explore.css";
 
 const Explore = () => {
   const [showPostModal, setShowPostModal] = useState(false);
-  const { posts } = useSelector((state) => state.posts);
+  const { posts, status } = useSelector((state) => state.posts);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+    if (status === "idle") {
+      dispatch(getPosts());
+    }
+  }, [dispatch, status]);
 
   return (
     <>
-      <Header setShowPostModal={setShowPostModal} />
-      <main className="main-section">
-        <section className="main-container">
-          <section className="card-container">
-            <Search />
-            {[...posts]?.reverse().map((post) => (
-              <PostCard key={post._id} post={post} />
-            ))}
-          </section>
+      {status === "pending" ? <Loader /> : null}
+      {status === "resolved" ? (
+        <>
+          <Header setShowPostModal={setShowPostModal} />
+          <main className="main-section">
+            <section className="main-container">
+              <section className="card-container">
+                <Search />
+                {[...posts]?.reverse().map((post) => (
+                  <PostCard key={post._id} post={post} />
+                ))}
+              </section>
 
-          <Suggestions />
-          {showPostModal ? (
-            <CreatePostModal
-              showPostModal={showPostModal}
-              setShowPostModal={setShowPostModal}
-            />
-          ) : null}
-        </section>
-      </main>
+              <Suggestions />
+              {showPostModal ? (
+                <CreatePostModal
+                  showPostModal={showPostModal}
+                  setShowPostModal={setShowPostModal}
+                />
+              ) : null}
+            </section>
+          </main>
+        </>
+      ) : null}
     </>
   );
 };
