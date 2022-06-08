@@ -5,6 +5,7 @@ import {
   Suggestions,
   CreatePostModal,
   Filter,
+  Search,
 } from "../../components/";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../../redux/asyncThunk/";
@@ -39,6 +40,7 @@ const Home = () => {
       <main className="main-section">
         <section className="main-container">
           <section className="card-container">
+            <Search />
             <Filter
               trending={trending}
               setTrending={setTrending}

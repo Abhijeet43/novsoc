@@ -5,6 +5,7 @@ import {
   PostCard,
   Suggestions,
   CreatePostModal,
+  Search,
 } from "../../components/";
 import { getPosts } from "../../redux/asyncThunk/";
 import "./Explore.css";
@@ -25,6 +26,7 @@ const Explore = () => {
       <main className="main-section">
         <section className="main-container">
           <section className="card-container">
+            <Search />
             {[...posts]?.reverse().map((post) => (
               <PostCard key={post._id} post={post} />
             ))}

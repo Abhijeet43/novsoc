@@ -1,0 +1,37 @@
+.user-card {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+}
+
+.user-card-img {
+  width: 4rem;
+  height: 4rem;
+  margin-right: 1rem;
+}
+
+.user-card img {
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  width: 100%;
+  height: 100%;
+}
+
+.user-card-info {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--font-size-6);
+}
+
+.user-card-info-link {
+  text-align: left;
+}
+
+.user-details {
+  color: var(--black-color);
+}
+
+.user-handle {
+  color: var(--lynx-gray-color);
+}
