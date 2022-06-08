@@ -32,7 +32,14 @@ const CommentCard = ({ comment, postId }) => {
       <div className="post-card-comments">
         <div className="comments-avatar">
           <Link to={`/profile/${comment.username}`}>
-            <img src={comment.avatarURL} alt="user" />
+            <img
+              src={
+                comment.username === user.username
+                  ? user.avatarURL
+                  : comment.avatarURL
+              }
+              alt="user"
+            />
           </Link>
         </div>
         <div className="comments-content">
