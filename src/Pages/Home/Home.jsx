@@ -4,14 +4,17 @@ import {
   PostCard,
   Suggestions,
   CreatePostModal,
-  Sort,
+  Filter,
 } from "../../components/";
 import { useSelector, useDispatch } from "react-redux";
 import { getPosts } from "../../redux/asyncThunk/";
+import { sortByTrending, sortByDate } from "../../utils/";
 import "./Home.css";
 
 const Home = () => {
   const [showPostModal, setShowPostModal] = useState(false);
+  const [trending, setTrending] = useState(false);
+  const [sortBy, setSortBy] = useState("");
   const dispatch = useDispatch();
   const { posts } = useSelector((state) => state.posts);
   const { user } = useSelector((state) => state.auth);
@@ -26,17 +29,26 @@ const Home = () => {
       user.following.some((following) => following.username === post.username)
   );
 
+  const trendingFilteredPosts = sortByTrending(feedPosts, trending);
+
+  const dateFilteredPosts = sortByDate(trendingFilteredPosts, sortBy);
+
   return (
     <>
       <Header setShowPostModal={setShowPostModal} />
       <main className="main-section">
         <section className="main-container">
           <section className="card-container">
-            <Sort />
-            {feedPosts.length > 0 ? (
-              feedPosts
-                .reverse()
-                .map((post) => <PostCard key={post._id} post={post} />)
+            <Filter
+              trending={trending}
+              setTrending={setTrending}
+              sortBy={sortBy}
+              setSortBy={setSortBy}
+            />
+            {dateFilteredPosts.length > 0 ? (
+              dateFilteredPosts.map((post) => (
+                <PostCard key={post._id} post={post} />
+              ))
             ) : (
               <>
                 <h2 className="no-post-text">No posts to show</h2>

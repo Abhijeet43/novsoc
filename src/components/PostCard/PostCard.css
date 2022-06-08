@@ -79,6 +79,16 @@
 .user-info-handle {
   font-size: var(--font-size-5);
   padding: 1rem 0;
+  align-self: center;
+}
+
+.post-date {
+  font-size: var(--font-size-6);
+  align-self: center;
+  padding: 0.5rem;
+  font-weight: var(--font-weight-2);
+  background-color: var(--lynx-purple-color);
+  margin-left: 1rem;
 }
 
 .post-card-content {
@@ -102,7 +112,8 @@
   color: var(--primary-color);
 }
 
-.liked,.bookmarked {
+.liked,
+.bookmarked {
   fill: var(--primary-color);
 }
 

@@ -46,7 +46,7 @@ export const posts = [
     lastName: "Doe",
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718256/userTwo_zuhg40.jpg",
-    createdAt: formatDate(),
+    createdAt: new Date("03/20/2020"),
     updatedAt: formatDate(),
     comments: [],
   },
@@ -110,7 +110,7 @@ export const posts = [
         createdAt: formatDate(),
       },
     ],
-    createdAt: formatDate(),
+    createdAt: new Date("06/02/2021"),
     updatedAt: formatDate(),
   },
   {
@@ -160,7 +160,7 @@ export const posts = [
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718247/userOne_xot5gc.jpg",
     comments: [],
-    createdAt: formatDate(),
+    createdAt: new Date("04/22/2021"),
     updatedAt: formatDate(),
   },
   {
@@ -202,7 +202,7 @@ export const posts = [
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718600/userThree_qat0za.jpg",
     comments: [],
-    createdAt: formatDate(),
+    createdAt: new Date("08/15/2018"),
     updatedAt: formatDate(),
   },
   {
@@ -261,7 +261,7 @@ export const posts = [
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718247/userOne_xot5gc.jpg",
     comments: [],
-    createdAt: formatDate(),
+    createdAt: new Date("01/07/2016"),
     updatedAt: formatDate(),
   },
   {
@@ -338,7 +338,7 @@ export const posts = [
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718283/profile_y24uvb.jpg",
     comments: [],
-    createdAt: formatDate(),
+    createdAt: new Date("02/08/2022"),
     updatedAt: formatDate(),
   },
   {
@@ -398,7 +398,7 @@ export const posts = [
     avatarURL:
       "https://res.cloudinary.com/abhijeetscloud/image/upload/v1653718578/userFour_zrkbid.jpg",
     comments: [],
-    createdAt: formatDate(),
+    createdAt: new Date("10/12/2017"),
     updatedAt: formatDate(),
   },
 ];

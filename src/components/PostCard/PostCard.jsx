@@ -34,6 +34,7 @@ const PostCard = ({ post }) => {
     img,
     likes: { likeCount, likedBy },
     comments,
+    createdAt,
   } = post;
   const [showComment, setShowComment] = useToggle(false);
   const [showPostModal, setShowPostModal] = useState(false);
@@ -89,6 +90,18 @@ const PostCard = ({ post }) => {
     }
   };
 
+  // GET DATE
+  const getDate = (createdAt) => {
+    const date = new Date(createdAt).toLocaleString("en-In", {
+      day: "2-digit",
+    });
+    const month = new Date(createdAt).toLocaleString("en-In", {
+      month: "short",
+    });
+    const year = new Date(createdAt).getFullYear();
+    return `${date} ${month} ${year}`;
+  };
+
   return (
     <div className="post-card">
       <div className="post-card-header">
@@ -107,6 +120,9 @@ const PostCard = ({ post }) => {
           </div>
           <div className="user-info-handle">
             <p>@{username}</p>
+          </div>
+          <div className="post-date">
+            <p>{getDate(createdAt)}</p>
           </div>
         </div>
         <div className="post-card-header-actions">
