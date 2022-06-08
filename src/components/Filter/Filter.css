@@ -1,6 +1,6 @@
 /* SORTING  */
 
-.sort-container {
+.filter-container {
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -15,7 +15,7 @@
   gap: 0.5rem;
 }
 
-.sort-container select {
+.filter-container select {
   padding: 1rem;
   height: 4rem;
   width: 15rem;
@@ -24,6 +24,14 @@
   cursor: pointer;
 }
 
-.sort-container select:focus {
+.filter-container select:focus {
   outline: 1px solid var(--primary-color);
+}
+
+.btn-outline-primary {
+  color: var(--primary-color);
+}
+
+.btn-outline-primary:hover {
+  color: var(--secondary-color);
 }
