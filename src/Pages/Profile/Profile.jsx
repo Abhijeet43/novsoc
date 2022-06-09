@@ -44,12 +44,12 @@ const Profile = () => {
               setShowEditModal={setShowEditModal}
             />
 
-            <div
-              className={`edit-modal-overlay ${
-                showEditModal ? "edit-modal-overlay-active" : ""
-              }`}
-              onClick={() => setShowEditModal(false)}
-            ></div>
+            {showEditModal ? (
+              <div
+                className="edit-modal-overlay edit-modal-overlay-active"
+                onClick={() => setShowEditModal(false)}
+              ></div>
+            ) : null}
 
             <EditProfileModal
               showEditModal={showEditModal}
