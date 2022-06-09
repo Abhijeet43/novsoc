@@ -30,6 +30,7 @@
   display: flex;
   align-items: center;
   color: var(--primary-color);
+  padding: 0;
 }
 
 .create-post-btn {
@@ -37,7 +38,12 @@
   color: var(--primary-color);
 }
 
-.nav-item:hover {
+.nav-header-link {
+  padding: 1rem;
+  color: var(--primary-color);
+}
+
+.nav-header-link:hover {
   background: var(--primary-color);
   border-radius: 10px;
 }
@@ -49,7 +55,7 @@
 .active {
   background: var(--primary-color);
   color: var(--secondary-color);
-  padding: 1rem;
+  /* padding: 1rem; */
   border-radius: 10px;
 }
 
@@ -72,5 +78,9 @@
 @media (max-width: 768px) {
   .header {
     padding: 1rem;
+  }
+
+  .home {
+    display: none;
   }
 }

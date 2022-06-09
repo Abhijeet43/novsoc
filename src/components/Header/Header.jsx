@@ -2,7 +2,7 @@ import React from "react";
 import { AiOutlineHome, AiOutlinePlusCircle } from "react-icons/ai";
 import { MdOutlineExplore } from "react-icons/md";
 import { BsBookmark } from "react-icons/bs";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./Header.css";
 
@@ -16,32 +16,34 @@ const Header = ({ setShowPostModal }) => {
       <nav className="navbar">
         <div className="nav-brand">
           <h1>
-            Nov<span className="primary">Soc</span>
+            <Link to="/home">
+              <span className="black">Nov</span>Soc
+            </Link>
           </h1>
         </div>
         <ul className="nav-items">
           <li className="nav-item">
-            <NavLink to="/home">
-              <AiOutlineHome title="Home" />
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/explore">
-              <MdOutlineExplore title="Explore" />
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink to="/bookmark">
-              <BsBookmark title="Bookmark" />
-            </NavLink>
-          </li>
-          <li className="nav-item">
             <button
-              className="create-post-btn"
+              className="create-post-btn nav-header-link"
               onClick={() => setShowPostModal(true)}
             >
               <AiOutlinePlusCircle title="Create Post" />
             </button>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/home" className="nav-header-link home">
+              <AiOutlineHome title="Home" />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/explore" className="nav-header-link">
+              <MdOutlineExplore title="Explore" />
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/bookmark" className="nav-header-link">
+              <BsBookmark title="Bookmark" />
+            </NavLink>
           </li>
 
           <li className="nav-item" title="Profile">

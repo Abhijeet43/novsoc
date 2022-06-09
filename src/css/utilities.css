@@ -44,6 +44,10 @@
   color: var(--danger-color);
 }
 
+.black {
+  color: var(--black-color);
+}
+
 /* flex */
 .flex {
   display: flex;
