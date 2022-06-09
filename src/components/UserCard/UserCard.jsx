@@ -1,22 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./UserCard.css";
 
-const UserCard = ({ user: { firstName, lastName, username, avatarURL } }) => {
+const UserCard = ({
+  user: { firstName, lastName, username, avatarURL },
+  setShowUsersModal = "",
+}) => {
+  const navigate = useNavigate();
+  const redirectToUser = () => {
+    if (setShowUsersModal !== "") {
+      setShowUsersModal(false);
+    }
+    navigate(`/profile/${username}`);
+  };
+
   return (
     <div className="user-card">
       <div className="user-card-img">
-        <Link to={`/profile/${username}`}>
-          <img src={avatarURL} alt="user" />
-        </Link>
+        <button className="user-card-info-link" onClick={redirectToUser}>
+          <img className="user-profile" src={avatarURL} alt="user" />
+        </button>
       </div>
       <div className="user-card-info">
-        <Link className="user-card-info-link" to={`/profile/${username}`}>
+        <button className="user-card-info-link" onClick={redirectToUser}>
           <h3 className="user-details">
-            {firstName} {lastName}
+            <span>{firstName}</span> <span>{lastName}</span>
           </h3>
           <span className="user-handle">@{username}</span>
-        </Link>
+        </button>
       </div>
     </div>
   );
