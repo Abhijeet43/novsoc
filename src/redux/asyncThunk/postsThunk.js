@@ -76,8 +76,9 @@ const editPost = createAsyncThunk(
 
 const likePost = createAsyncThunk(
   "posts/likePost",
-  async ({ postId, token }, { rejectWithValue }) => {
+  async ({ postId, token, SetLikeDisable }, { rejectWithValue }) => {
     try {
+      SetLikeDisable(true);
       const response = await axios.post(
         `/api/posts/like/${postId}`,
         {},
@@ -92,14 +93,17 @@ const likePost = createAsyncThunk(
         data: error.response.data,
         status: error.response.status,
       });
+    } finally {
+      SetLikeDisable(false);
     }
   }
 );
 
 const dislikePost = createAsyncThunk(
   "posts/dislikePost",
-  async ({ postId, token }, { rejectWithValue }) => {
+  async ({ postId, token, SetLikeDisable }, { rejectWithValue }) => {
     try {
+      SetLikeDisable(true);
       const response = await axios.post(
         `/api/posts/dislike/${postId}`,
         {},
@@ -112,14 +116,17 @@ const dislikePost = createAsyncThunk(
         data: error.response.data,
         status: error.response.status,
       });
+    } finally {
+      SetLikeDisable(false);
     }
   }
 );
 
 const addComment = createAsyncThunk(
   "posts/addComment",
-  async ({ id, comment, token }, { rejectWithValue }) => {
+  async ({ id, comment, token, SetCommentBtnDisable }, { rejectWithValue }) => {
     try {
+      SetCommentBtnDisable(true);
       const response = await axios.post(
         `/api/comments/add/${id}`,
         { commentData: comment },
@@ -132,6 +139,8 @@ const addComment = createAsyncThunk(
         data: error.response.data,
         status: error.response.status,
       });
+    } finally {
+      SetCommentBtnDisable(false);
     }
   }
 );

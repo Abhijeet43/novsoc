@@ -5,6 +5,7 @@ import { addPost, editPost } from "../../redux/asyncThunk/";
 import { useSelector, useDispatch } from "react-redux";
 import { FaTimes, FaImage } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { setBtnLoading } from "../../redux/slices/";
 
 const CreatePostModal = ({
   setShowPostModal,
@@ -27,6 +28,7 @@ const CreatePostModal = ({
 
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.auth);
+  const { isLoading } = useSelector((state) => state.posts);
 
   const reader = new FileReader();
 
@@ -51,6 +53,7 @@ const CreatePostModal = ({
 
   const editPostHandler = async () => {
     if (media.mediaURL !== "" && media.mediaURL !== postData.img) {
+      dispatch(setBtnLoading());
       const type = media.mediaURL.includes("video") ? "video" : "image";
       await saveImageToCloudindary(
         media.mediaFile,
@@ -99,6 +102,7 @@ const CreatePostModal = ({
 
   const addPostHandler = async () => {
     if (media.mediaURL !== "") {
+      dispatch(setBtnLoading());
       const type = media.mediaURL.includes("video") ? "video" : "image";
       await saveImageToCloudindary(
         media.mediaFile,
@@ -176,6 +180,7 @@ const CreatePostModal = ({
           </p>
           <div className="create-post-action">
             <button
+              disabled={isLoading}
               className="btn btn-primary"
               onClick={editData ? editPostHandler : addPostHandler}
             >

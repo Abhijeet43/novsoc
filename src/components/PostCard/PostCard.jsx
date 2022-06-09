@@ -40,6 +40,9 @@ const PostCard = ({ post }) => {
   const [showPostModal, setShowPostModal] = useState(false);
   const [showMenu, setShowMenu] = useToggle(false);
   const [comment, setComment] = useState("");
+  const [likeDisable, SetLikeDisable] = useState(false);
+  const [bookmarkDisable, SetBookmarkDisable] = useState(false);
+  const [commentBtnDisable, SetCommentBtnDisable] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,16 +54,18 @@ const PostCard = ({ post }) => {
 
   const likeHandler = async (postId) =>
     likedByUser
-      ? await dispatch(dislikePost({ postId, token }))
-      : await dispatch(likePost({ postId, token }));
+      ? await dispatch(dislikePost({ postId, token, SetLikeDisable }))
+      : await dispatch(likePost({ postId, token, SetLikeDisable }));
 
   // BOOKMARK FUNCTIONALITY
   const bookmarkedByUser = bookmarks.some((currId) => currId === id);
 
   const bookmarkHandler = async (postId) =>
     bookmarkedByUser
-      ? await dispatch(removeFromBookmark({ postId, token }))
-      : await dispatch(bookmarkPost({ postId, token }));
+      ? await dispatch(
+          removeFromBookmark({ postId, token, SetBookmarkDisable })
+        )
+      : await dispatch(bookmarkPost({ postId, token, SetBookmarkDisable }));
 
   // DELETE POST
   const deletePostHandler = async (post) => {
@@ -80,7 +85,9 @@ const PostCard = ({ post }) => {
 
   // ADD COMMENT
   const addCommentHandler = async () => {
-    const response = await dispatch(addComment({ id, comment, token }));
+    const response = await dispatch(
+      addComment({ id, comment, token, SetCommentBtnDisable })
+    );
     if (response?.payload.status === 201) {
       toast.info("Comment Added Successfully!!");
       setComment("");
@@ -166,6 +173,7 @@ const PostCard = ({ post }) => {
       <div className="post-card-actions">
         <div className="post-card-action flex">
           <button
+            disabled={likeDisable}
             className="post-card-action-btn flex"
             onClick={() => {
               likeHandler(id);
@@ -188,6 +196,7 @@ const PostCard = ({ post }) => {
         </div>
         <div className="post-card-action">
           <button
+            disabled={bookmarkDisable}
             className="post-card-action-btn flex"
             onClick={() => bookmarkHandler(id)}
             title="Bookmark"
@@ -211,7 +220,7 @@ const PostCard = ({ post }) => {
             onChange={(e) => setComment(e.target.value)}
           />
           <button
-            disabled={comment === "" ? true : false}
+            disabled={comment === "" ? "disabled" : commentBtnDisable}
             className="post-card-action-btn post-btn"
             onClick={addCommentHandler}
           >

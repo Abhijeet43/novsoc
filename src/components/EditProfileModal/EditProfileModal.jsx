@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { editUser } from "../../redux/asyncThunk";
-import { updateUser } from "../../redux/slices/";
+import { updateUser, setLoading } from "../../redux/slices/";
 import { saveImageToCloudindary } from "../../services/";
 import { AiFillCamera, AiOutlineClose } from "react-icons/ai";
 import "./EditProfileModal.css";
@@ -13,7 +13,7 @@ const EditProfileModal = ({
   userProfile,
   setUserProfile,
 }) => {
-  const { token } = useSelector((state) => state.auth);
+  const { token, isLoading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const reader = new FileReader();
 
@@ -65,6 +65,7 @@ const EditProfileModal = ({
   const editUserHandler = async () => {
     try {
       if (userData.avatarURL !== "") {
+        dispatch(setLoading());
         await saveImageToCloudindary(
           userData.avatarFile,
           saveEditedData,
@@ -147,6 +148,7 @@ const EditProfileModal = ({
 
       <div className="edit-profile-footer">
         <button
+          disabled={isLoading}
           className="btn btn-primary profile-btn"
           onClick={editUserHandler}
         >
