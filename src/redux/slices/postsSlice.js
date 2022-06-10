@@ -12,22 +12,26 @@ import {
   deleteComment,
 } from "../asyncThunk/";
 
-const initialState = { posts: [], isLoading: false };
+const initialState = { posts: [], isLoading: false, status: "idle" };
 
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
-  extraReducers: {
-    [getPosts.pending]: (state) => {
+  reducers: {
+    setBtnLoading: (state) => {
       state.isLoading = true;
     },
+  },
+  extraReducers: {
+    [getPosts.pending]: (state) => {
+      state.status = "pending";
+    },
     [getPosts.fulfilled]: (state, action) => {
-      state.isLoading = false;
+      state.status = "resolved";
       state.posts = action.payload.data.posts;
     },
     [getPosts.rejected]: (state, action) => {
-      state.isLoading = false;
+      state.status = "failed";
       toast.error(action.payload.data.errors[0]);
     },
     [addPost.pending]: (state) => {
@@ -118,4 +122,5 @@ const postsSlice = createSlice({
   },
 });
 
+export const { setBtnLoading } = postsSlice.actions;
 export const { reducer: postsReducer } = postsSlice;

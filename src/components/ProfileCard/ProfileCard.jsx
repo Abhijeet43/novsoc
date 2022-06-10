@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, updateUser } from "../../redux/slices/";
 import { useNavigate } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { followUser, unfollowUser } from "../../redux/asyncThunk/";
+import { UsersModal } from "../index";
 import "./ProfileCard.css";
 
 const ProfileCard = ({ userData, posts, setShowEditModal }) => {
+  const [userAction, setUserAction] = useState("");
+  const [showUsersModal, setShowUsersModal] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -94,11 +98,27 @@ const ProfileCard = ({ userData, posts, setShowEditModal }) => {
         </div>
         <div>
           <p className="bold center">{userData?.followers?.length}</p>
-          <p>Followers</p>
+          <button
+            className="user-info-btn"
+            onClick={() => {
+              setUserAction("Followers");
+              setShowUsersModal(true);
+            }}
+          >
+            Followers
+          </button>
         </div>
         <div>
           <p className="bold center">{userData?.following?.length}</p>
-          <p>Following</p>
+          <button
+            className="user-info-btn"
+            onClick={() => {
+              setUserAction("Following");
+              setShowUsersModal(true);
+            }}
+          >
+            Following
+          </button>
         </div>
       </div>
       <p className="profile-link">
@@ -110,6 +130,17 @@ const ProfileCard = ({ userData, posts, setShowEditModal }) => {
           {userData?.website}
         </button>
       </p>
+      {showUsersModal ? (
+        <UsersModal
+          userAction={userAction}
+          setShowUsersModal={setShowUsersModal}
+          users={
+            userAction === "Followers"
+              ? userData?.followers
+              : userData?.following
+          }
+        />
+      ) : null}
     </section>
   );
 };

@@ -97,3 +97,10 @@
   justify-content: center;
   align-items: center;
 }
+
+@media (max-width: 768px) {
+  .edit-profile-modal {
+    left: 5%;
+    width: 35rem;
+  }
+}

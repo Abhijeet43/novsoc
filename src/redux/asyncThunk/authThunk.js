@@ -55,8 +55,9 @@ const editUser = createAsyncThunk(
 
 const bookmarkPost = createAsyncThunk(
   "users/addBookmark",
-  async ({ postId, token }, { rejectWithValue }) => {
+  async ({ postId, token, SetBookmarkDisable }, { rejectWithValue }) => {
     try {
+      SetBookmarkDisable(true);
       const response = await axios.post(
         `/api/users/bookmark/${postId}`,
         {},
@@ -71,14 +72,17 @@ const bookmarkPost = createAsyncThunk(
         data: error.response.data,
         status: error.response.status,
       });
+    } finally {
+      SetBookmarkDisable(false);
     }
   }
 );
 
 const removeFromBookmark = createAsyncThunk(
   "users/deleteBookmark",
-  async ({ postId, token }, { rejectWithValue }) => {
+  async ({ postId, token, SetBookmarkDisable }, { rejectWithValue }) => {
     try {
+      SetBookmarkDisable(true);
       const response = await axios.post(
         `/api/users/remove-bookmark/${postId}`,
         {},
@@ -93,6 +97,8 @@ const removeFromBookmark = createAsyncThunk(
         data: error.response.data,
         status: error.response.status,
       });
+    } finally {
+      SetBookmarkDisable(false);
     }
   }
 );

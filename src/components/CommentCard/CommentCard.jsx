@@ -21,7 +21,7 @@ const CommentCard = ({ comment, postId }) => {
       deleteComment({ postId, commentId: comment._id, token })
     );
     if (response?.payload.status === 201) {
-      toast.info("Post deleted successfully!!");
+      toast.info("Comment deleted successfully!!");
     } else {
       toast.error(response.payload.data.errors[0]);
     }

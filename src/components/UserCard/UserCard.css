@@ -5,8 +5,6 @@
 }
 
 .user-card-img {
-  width: 4rem;
-  height: 4rem;
   margin-right: 1rem;
 }
 
@@ -14,8 +12,8 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: top;
-  width: 100%;
-  height: 100%;
+  width: 4rem;
+  height: 4rem;
 }
 
 .user-card-info {
@@ -26,10 +24,12 @@
 
 .user-card-info-link {
   text-align: left;
+  display: flex;
 }
 
 .user-details {
   color: var(--black-color);
+  margin-right: 0.5rem;
 }
 
 .user-handle {

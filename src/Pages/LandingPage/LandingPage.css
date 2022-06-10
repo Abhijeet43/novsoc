@@ -61,20 +61,27 @@
 /* MEDIA QUERIES */
 
 @media (max-width: 768px) {
+  .home-section {
+    margin-top: 2rem;
+  }
+
   .home-content {
     flex-direction: column;
   }
 
+  .app-sub-desc {
+    padding: 1rem;
+  }
+
+  .section-form {
+    padding: 20px;
+  }
+
+  .section-hero {
+    display: none;
+  }
+
   .section-content {
-    order: 2;
-    text-align: center;
-  }
-
-  .section-content-description {
-    line-height: 3rem;
-  }
-
-  .btn-container {
-    align-items: center;
+    padding: 0;
   }
 }

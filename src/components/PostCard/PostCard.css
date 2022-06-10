@@ -147,3 +147,30 @@
   cursor: not-allowed;
   filter: brightness(180%);
 }
+
+.user-info-mob-handle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .user-avatar {
+    align-self: center;
+  }
+
+  .user-avatar {
+    border-radius: 40%;
+  }
+
+  .user-info-details {
+    padding: 0.5rem;
+    font-size: var(--font-size-7);
+  }
+
+  .user-info-handle {
+    display: none;
+  }
+
+  .user-info-mob-handle {
+    display: block;
+  }
+}

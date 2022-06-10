@@ -12,3 +12,5 @@ export { CommentCard } from "./CommentCard/CommentCard";
 export { EditCommentModal } from "./EditCommentModal/EditCommentModal";
 export { Search } from "./Search/Search";
 export { UserCard } from "./UserCard/UserCard";
+export { Loader } from "./Loader/Loader";
+export { UsersModal } from "./UsersModal/UsersModal";

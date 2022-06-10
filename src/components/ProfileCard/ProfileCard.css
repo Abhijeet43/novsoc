@@ -7,7 +7,7 @@
   background: var(--secondary-color);
   margin-bottom: 2rem;
   border-radius: 2rem;
-  min-width: 40rem;
+  width: 40rem;
 }
 
 .profile-image-container {
@@ -36,6 +36,7 @@
 
 .profile-description {
   font-size: var(--font-size-5);
+  text-align: center;
 }
 
 .profile-actions {
@@ -89,4 +90,19 @@
   color: var(--primary-color);
   text-transform: lowercase;
   font-size: var(--font-size-5);
+}
+
+.user-info-btn {
+  color: var(--primary-color);
+  font-size: var(--font-size-6);
+}
+
+.user-info-btn:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .profile {
+    width: 35rem;
+  }
 }
