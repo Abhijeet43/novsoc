@@ -12,6 +12,12 @@
   align-items: flex-end;
 }
 
+.no-bookmark-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 768px) {
   .bookmark-card-container {
     width: 100%;
@@ -20,8 +26,7 @@
 
   .no-bookmark-container {
     height: 100%;
-    display: flex;
-    flex-direction: column;
+
     align-items: center;
     justify-content: center;
   }
