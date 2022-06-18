@@ -18,7 +18,11 @@ const UserCard = ({
     <div className="user-card">
       <div className="user-card-img">
         <button className="user-card-info-link" onClick={redirectToUser}>
-          <img className="user-profile" src={avatarURL} alt="user" />
+          {avatarURL ? (
+            <img className="user-profile" src={avatarURL} alt="user" />
+          ) : (
+            <div className="user-initials">{`${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`}</div>
+          )}
         </button>
       </div>
       <div className="user-card-info">
