@@ -116,12 +116,17 @@ const PostCard = ({ post }) => {
           className="post-card-user-info"
           onClick={() => navigate(`/profile/${username}`)}
         >
-          <div className="user-avatar">
-            <img
-              src={username === user.username ? user.avatarURL : avatarURL}
-              alt="user"
-            />
-          </div>
+          {avatarURL ? (
+            <div className="user-avatar">
+              <img
+                src={username === user.username ? user.avatarURL : avatarURL}
+                alt="user"
+              />
+            </div>
+          ) : (
+            <div className="user-initials">{`${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`}</div>
+          )}
+
           <div className="user-info-details">
             <h3>{`${firstName} ${lastName}`}</h3>
             <p className="user-info-mob-handle">@{username}</p>

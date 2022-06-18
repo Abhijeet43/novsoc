@@ -71,7 +71,7 @@ const Profile = () => {
                     xmlns="http://www.w3.org/2000/svg"
                     data-name="Layer 1"
                     width="928.79134"
-                    height="380"
+                    height="320"
                     viewBox="0 0 928.79134 708.99962"
                   >
                     <path
