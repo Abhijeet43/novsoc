@@ -17,7 +17,8 @@ const Header = ({ setShowPostModal }) => {
         <div className="nav-brand">
           <h1>
             <Link to="/home">
-              <span className="black">Nov</span>Soc
+              <span className="black">Nov</span>
+              <span className="primary">Soc</span>
             </Link>
           </h1>
         </div>
