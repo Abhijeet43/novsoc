@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import "../../css/authentication.css";
+import { validatePassword, confirmPasswordCheck } from "../../utils";
 
 const Signup = ({ setAuthMode }) => {
   const [showPass, setShowPass] = useToggle(false);
@@ -45,7 +46,10 @@ const Signup = ({ setAuthMode }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (checkInputs()) {
-      if (user.password === user.confirmPassword) {
+      if (
+        validatePassword(user.password) &&
+        confirmPasswordCheck(user.password, user.confirmPassword)
+      ) {
         const response = await dispatch(signupUser(user));
         if (response?.payload?.status === 201) {
           localStorage.setItem(
@@ -60,8 +64,6 @@ const Signup = ({ setAuthMode }) => {
         } else {
           toast.error("Something went wrong... Please Try After Sometime");
         }
-      } else {
-        toast.error("Password and Confirm Password donot match");
       }
     } else {
       toast.warn("Fields cannot be empty");

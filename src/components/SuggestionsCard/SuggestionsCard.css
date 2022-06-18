@@ -48,6 +48,19 @@
   cursor: pointer;
 }
 
+.user-initials {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  font-size: var(--font-size-6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  font-weight: var(--font-weight-3);
+}
+
 @media (max-width: 768px) {
   .suggestions-container {
     display: none;

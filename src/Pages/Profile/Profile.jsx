@@ -37,7 +37,7 @@ const Profile = () => {
       <Header setShowPostModal={setShowPostModal} />
       <main className="main-section">
         <section className="main-container">
-          <section>
+          <section className="profile-section">
             <ProfileCard
               userData={userProfile}
               posts={userPosts}

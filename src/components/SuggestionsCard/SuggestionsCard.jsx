@@ -33,9 +33,14 @@ const SuggestionsCard = ({
         className="user-details"
         onClick={() => navigate(`/profile/${username}`)}
       >
-        <div className="user-avatar">
-          <img src={avatarURL} alt="user" />
-        </div>
+        {avatarURL ? (
+          <div className="user-avatar">
+            <img src={avatarURL} alt="user" />
+          </div>
+        ) : (
+          <div className="user-initials">{`${firstName[0].toUpperCase()}${lastName[0].toUpperCase()}`}</div>
+        )}
+
         <div className="suggestions-info">
           <h4>{`${firstName} ${lastName}`}</h4>
           <p>@{username}</p>
