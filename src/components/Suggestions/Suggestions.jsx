@@ -18,7 +18,7 @@ const Suggestions = () => {
   const nonFollowing = otherUsers.filter((item) =>
     item.followers.every((follower) => follower.username !== user?.username)
   );
-  return (
+  return nonFollowing.length > 0 ? (
     <section className="suggestions-container">
       <h2 className="suggestions-title">People you may know</h2>
       <div className="suggestions-list">
@@ -27,7 +27,7 @@ const Suggestions = () => {
         ))}
       </div>
     </section>
-  );
+  ) : null;
 };
 
 export { Suggestions };
