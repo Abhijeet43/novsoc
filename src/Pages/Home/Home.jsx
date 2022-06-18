@@ -59,10 +59,11 @@ const Home = () => {
                   <>
                     <h2 className="no-post-text">No posts to show</h2>
                     <svg
+                      className="no-posts-home"
                       xmlns="http://www.w3.org/2000/svg"
                       data-name="Layer 1"
                       width="928.79134"
-                      height="380"
+                      height="320"
                       viewBox="0 0 928.79134 708.99962"
                     >
                       <path

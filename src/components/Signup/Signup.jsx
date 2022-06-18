@@ -52,11 +52,6 @@ const Signup = ({ setAuthMode }) => {
       ) {
         const response = await dispatch(signupUser(user));
         if (response?.payload?.status === 201) {
-          localStorage.setItem(
-            "user",
-            JSON.stringify(response.payload.data.createdUser)
-          );
-          localStorage.setItem("token", response.payload.data.encodedToken);
           toast.success("Signup Successfull!!");
           navigate(location?.state?.from?.pathname || "/home", {
             replace: true,
