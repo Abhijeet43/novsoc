@@ -103,6 +103,6 @@ input[type="file"] {
 @media (max-width: 768px) {
   .create-post-modal {
     width: 35rem;
-    left: 5%;
+    left: 1%;
   }
 }
